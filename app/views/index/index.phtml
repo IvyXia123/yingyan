@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+    <head >
+        <meta charset="UTF-8">
+    	<!--<meta http-equiv="refresh" content="10" /> 定时刷新 单位：分-->
+        <title>鹰眼</title>
+        <link rel="shortcut icon" type="image/x-icon" href="/image/logo.ico"/>
+        <link rel="stylesheet" type="text/css" href="/css/base-2.css"/>
+        <link rel="stylesheet" type="text/css" href="/css/index.css"/>
+        <link rel="stylesheet" type="text/css" href="/css/header.css"/>
+        <link rel="stylesheet" type="text/css" href="/css/warning_model.css"/>
+        <link rel="stylesheet" type="text/css" href="/css/tip.css"/>
+        <link rel="stylesheet" type="text/css" href="/css/report-forms.css"/>
+		<link rel="stylesheet" type="text/css" href="/css/vip-style.css">
+		<link rel="stylesheet" type="text/css" href="/css/trait_details.css"/>
+		<link rel="stylesheet" type="text/css" href="/css/detail.css"/>
+		<link rel="stylesheet" type="text/css" href="/css/laydate.css"/>
+        <link rel="stylesheet" type="text/css" href="/css/calendar.css"/>
+        <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+        <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="/css/sh/shCore.css"/>
+        <link rel="stylesheet" type="text/css" href="/css/sh/shCoreDefault.css"/>
+        <link rel="stylesheet" type="text/css" href="/css/sh/shThemeDefault.css"/>
+        <link rel="stylesheet" type="text/css" href="/css/jquery-confirm.min.css"/>
+        <link rel="stylesheet" type="text/css" href="/css/jquery.orgchart.css">
+    </head>
+    <body>
+        <!--  start header -->
+        <div class="g-download"></div>
+        <div class="container_header">
+            <header class="header clearfix">
+				<div class="header_content_top">
+					<div>
+						<ul class="userName">
+							<li>欢迎您：</li>
+							<li style="color: #00cccc;"id="user_name">xxxxx</li>
+							<li>|&nbsp;&nbsp;<a href="JavaScript:;" onclick="exit()" >退出登录</a></li>
+						</ul>
+					</div>
+				</div>
+				<section class="header_content clearfix">
+					<nav class="header_content_nav clearfix">	
+						<span class="logo in_left">
+							<a href="index.phtml"><img src="/image/logo.png" class="Auto"></a>						
+						</span>
+						<ul class="in_left">
+							<li class="nav_one"><a href="JavaScript:;"class="nav_one_Selected">智能营销</a>
+								<div class="hide">
+									<ul>
+										<li class="nav_two"><a href="index.phtml">活动总览</a></li>
+	                                    <li class="nav_two"><a href="JavaScript:;"date-page="activity-creates">活动创建</a></li>
+	                                    <li class="nav_two"><a href="JavaScript:;"date-page="recycle">回收站</a></li>
+	                                    <li class="nav_two"><a href="JavaScript:;"date-page="downloadItems">下载列表</a></li>
+	                                </ul>
+								</div>
+							</li>
+							<li class="nav_one"><a href="JavaScript:;">营销洞察</a>
+								<div class="hide">
+									<ul>
+				                        <li class="nav_two"><a href="JavaScript:;"date-page="classification_model">渠道分类模型</a></li>
+	                                    <li class="nav_two"><a href="JavaScript:;"date-page="warning_model">渠道预警模型</a></li>
+	                                    <li class="nav_two"><a href="JavaScript:;"date-page="strategy_model">营销策略分析模型</a></li>
+	                               		<li class="nav_two"><a href="JavaScript:;"date-page="vip-model">会员分类营销模型</a></li>
+	                                </ul>
+								</div>
+							</li>
+							<li class="nav_one"><a href="JavaScript:;">自助报表</a>
+								<div class="hide">
+									<ul>
+				                        <li class="nav_two"><a href="JavaScript:;"date-page="reportForms">自助报表</a></li>
+				                        <li class="nav_two"><a href="JavaScript:;" date-page="myTask">我的列表</a></li>
+	                               </ul>
+                               	</div>
+                            </li>
+                            <li class="nav_one"><a href="JavaScript:;"onclick="promptShow()">个人中心</a></li>
+                        </ul>
+					</nav>
+				</section>
+				<nav class="header_nav">
+	                <!-- start content header -->
+	                <div class="content_header">
+	                    <p class="header_content_left"><i id="pageTitle">智能营销&nbsp;>&nbsp;活动总览</i></p>
+	                </div>
+	            </nav>
+			</header> 
+        </div>
+        <!--  end header -->
+        <div class="container" id="g-container">
+            <section id="index_content"class="container_show" date-page="智能营销&nbsp;>&nbsp;活动总览">
+                <!-- end content header -->
+                <!-- start content table -->
+                <div class="content_table g-table" style="overflow-x: hidden;">
+                    <!--  start table header  -->		    
+                    <div class="table-head">
+                        <table style="height: 0.52rem;">
+                            <colgroup><col /><col /><col /><col /><col /><col /><col /><col /></colgroup>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>名称</th>
+                                    <th>创建时间</th>
+                                    <th>活动状态</th>
+                                    <th>执行时间</th>
+                                    <th>最新名单人数</th>
+                                    <th>创建人</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <!--  end table header  -->
+                    <!--  start table section  -->
+                    <div class="table-body">
+                        <table id="overviewActivity">
+                            <colgroup><col /><col /><col /><col /><col /><col /><col /><col /></colgroup>
+                            <tbody>					            
+                            </tbody>
+                        </table>
+                    </div>	   		
+                    <!--  end table section  -->
+                </div>
+                <!-- end content table -->
+            </section>
+            <section id="activity-creates" date-page="智能营销&nbsp;>&nbsp;活动创建"></section>
+            <section id="recycle"date-page="智能营销&nbsp;>&nbsp;回收站"></section>
+            <section id="downloadItems" date-page="智能营销&nbsp;>&nbsp;下载列表"></section>
+            <section id="classification_model"date-page="营销洞察&nbsp;>&nbsp;渠道分类模型"></section>
+            <section id="warning_model"date-page="营销洞察&nbsp;>&nbsp;渠道预警模型"></section>
+            <section id="strategy_model"class="chartTable"date-page="营销洞察&nbsp;>&nbsp;营销策略分析模型"></section>
+            <section id="vip-model"class="chartTable"date-page="营销洞察&nbsp;>&nbsp;会员分类营销模型" style="height: 97% !important;"></section>
+            <section id="trait_detail" class="san" date-page='营销洞察&nbsp;>&nbsp;<span class="pointer" onclick="returnPage(this)">渠道分类模型</span>&nbsp;>&nbsp;渠道分类明细特征'></section>
+            <section id="features" class="san" date-page='营销洞察&nbsp;>&nbsp;<span class="pointer" onclick="returnPage(this)">渠道分类模型</span>&nbsp;>&nbsp;类特征详情'></section>
+            <section id="moneyWarning"class="chartTable san" date-page='营销洞察&nbsp;>&nbsp;<span class="pointer" onclick="returnPage(this)">渠道预警模型</span>&nbsp;>&nbsp;交易金额'></section>
+            <section id="peopleWarning"class="chartTable san" date-page='营销洞察&nbsp;>&nbsp;<span class="pointer" onclick="returnPage(this)">渠道预警模型</span>&nbsp;>&nbsp;交易人数'></section>
+            <section id="activity-Particulars" class="san" date-page='智能营销&nbsp;>&nbsp;<span class="pointer" onclick="returnPage(this)">活动总览</span>&nbsp;>&nbsp;活动详情'></section>
+          	<section id="reportForms" class="san" date-page='自助报表'></section>
+          	<section id="myTask" class="san" date-page='自助报表;>&nbsp;我的列表'></section>
+         <!-- loading -->
+	        <div class="loading">
+		       <div class="loader">
+		            <div class="loading-1"></div>
+		            <div class="loading-2">Loading...</div>
+		        </div>
+	        </div>
+        </div>
+        <!---------------------------      提示框       ------------------------------>
+        <div class="warning_box">
+            <div class="rotating"></div>
+            <div class="warning">
+                <p>友情提示</p>
+                <span>该功能暂未开放！</span>
+                <button class="warning_btn fr">确定</button>	
+            </div>
+        </div>
+        <!-- start 导出 -->
+        <form action=""class="u-export">
+            <ul>
+                <li><input type="checkbox" name="chkItem1" value="mobile"/>手机号码</li>
+                <li><input type="checkbox" name="chkItem2" value="named"/>称呼</li>
+                <li><input type="checkbox" name="chkItem3" value="device_type"/>设备类型</li>
+                <li><input type="checkbox" name="chkItem4" value="device_cid"/>CID</li>
+                <li><input type="checkbox" name="chkItem5" value="member_no"/>MEMBER-NO</li>
+                <li style="margin: 10px 0">
+                    csv <input type="radio" checked="true" name="downType" value="csv"/>
+                    excel <input type="radio" name="downType" value="excel"/>
+                </li>
+                <li><a type="button" class="btn pointer" onclick="downloadAction()">确认</a></li>
+                <li style="color: red;font-size: 0.12rem;"><i style="font-size: 0.16rem;">*</i> 点击确认后，文件会自动下载。请勿关闭页面！</li>
+            </ul>
+        </form>
+        <!-- end 导出 -->
+        <!-- start 下载 -->
+        <aside class="aside_content" style="display: none;">
+            <h1 class="_header">下载记录</h1>
+            <nav class="content_nav">		
+                <ul class="Entries_group" id="download">
+                </ul>
+            </nav>			
+        </aside>
+        <p class="aside_btn pointer"onclick="animateAside()"style="display: none;">+</p>
+        <!-- end 下载 -->
+        <!-- serat 弹出框 -->
+        <div id="globalTip">
+            <section class="md-modal md-effect-11">
+                <div class="md-content">
+                    <h3>提示</h3>
+                    <div>
+                        <p>提交内容有误！</p>
+                        <ul>
+                            <li><i> modal windows will probably tell you something important .</i></li>
+                        </ul>
+                        <span style="display: block;padding: 0.15rem 0;width: 2rem;margin: 0 auto;">
+                            <button class="md-close in_left"onclick="hide()"style="margin-right: 0.15rem;">确定</button>
+                            <button class="in_left" onclick="hide()"style="background-color: #ccc;">取消</button>
+                        </span>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- end 弹出框 -->
+    </body>
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/tablesize.js"></script>
+    <script type="text/javascript" src="/js/resolution.js"></script>
+    <script type="text/javascript" src="/js/calendar.js"></script>
+    <script type="text/javascript" src="/js/pageGroup.js"></script>
+    <script type="text/javascript" src="/js/sql.js"></script>
+    <script type="text/javascript" src="/js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="/js/calendar.js"></script>
+    <script type="text/javascript" src="/js/echarts.js"></script>
+    <script type="text/javascript" src="/js/download.js"></script>
+    <script type="text/javascript" src="/js/master.js"></script>
+    <script type="text/javascript" src="/js/jquery.format.js"></script>
+    <script type="text/javascript" src="/js/sh/shCore.js"></script>
+	<script type="text/javascript" src="/js/sh/shAutoloader.js"></script>
+	<script type="text/javascript" src="/js/sh/shBrushSql.js"></script>
+	<script type="text/javascript" src="/js/sh/jquery.zclip.min.js"></script>
+	<script type="text/javascript" src="/js/jquery-confirm.min.js"></script>
+	<script type="text/javascript" src="/js/documentClick.js"></script>
+	<script type="text/javascript" charset="utf-8" src="/js/copyTAB.js"></script>
+</html>

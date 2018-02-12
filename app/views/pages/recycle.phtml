@@ -1,0 +1,77 @@
+<!-- start content table -->
+<div class="content_table g-table"style="overflow-x: hidden;">
+    <!--  start table header  -->		    
+	<div class="table-head">
+        <table>
+            <colgroup><col /><col /><col /><col /><col /><col /><col /><col /></colgroup>
+            <thead>
+                <tr>
+                	<th>ID</th>
+                	<th>名称</th>
+                	<th>创建时间</th>
+                	<th>活动状态</th>
+                	<th>最新执行时间</th>
+                	<th>最新名单人数</th>
+                	<th>创建人</th>
+                	<th>操作</th>
+                </tr>
+            </thead>
+        </table>
+	</div>
+	<!--  end table header  -->
+	<!--  start table section  -->
+    <div class="table-body">
+     	<table id="recycle_activity">
+           	<colgroup><col /><col /><col /><col /><col /><col /><col /><col /></colgroup>
+            <tbody>
+            </tbody>
+   		</table>
+	</div>	   		
+	<!--  end table section  -->
+</div>
+<!-- end content table -->
+<input type=""disabled="disabled" value="暂时没有数据，快去删几条吧"class="input_disabled"style="display: none;" />
+<script type="text/javascript">
+$(function(){
+	getTablelist();
+})
+function getTablelist(){
+	$.ajax({
+		type:"post",
+		url:"/get/recycle",
+		beforeSend:function (){
+        	$('.loading').show();
+        },
+		success:function(meg){
+			msg=JSON.parse(meg);
+			for(var i=0;i<msg.length;i++){
+            	activityList[i]=msg[i];
+            	var html='<tr><td scope="row">'+msg[i].id+'</td>'+
+        				'<td><i class="mouseHover pointer activityName sizeWidth">'+msg[i].name+'</i></td>'+
+        				'<td><span>'+msg[i].create_time+'</span></td>'+     				
+        				'<td><span>'+msg[i].task_status+'</span></td>'+
+        				'<td><span>'+msg[i].last_run_time+'</span></td>'+
+        				'<td><span>'+msg[i].list_count+'</span></td>'+           				
+        				'<td><span>'+msg[i].submitter+'</span></td>'+
+        				'<td><span onclick="recover(this)" class="mouseHover">还原</span></td></tr>'
+				$('#recycle_activity').append(html);         				
+           }
+           sizeTab();
+           setTimeout(function(){$('.loading').hide()},1500);
+		}
+	});
+}	
+//  恢复当前活动，隐藏节点；
+function recover(e){
+	var indexId=$(e).parents('tr').children('td').eq(0).html();
+	$.ajax({
+		type:"get",
+		url:"/get/recycleOut",
+		data:{
+			id:indexId
+		}
+	});
+	$(e).parents('tr').hide();
+}
+
+</script>

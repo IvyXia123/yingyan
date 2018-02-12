@@ -1,0 +1,247 @@
+.r-g-container{
+    width: 100%;
+    height:100%;
+    background:white ;
+    border:1px solid #ccc;
+}
+.r-m-directory{
+	position: relative;
+    width:250px;
+    height:100%;
+    border-right: 1px solid #ccc;
+    overflow: hidden;
+    float:left;
+}
+/*.r-g-container .r-m-directory是左盒子*/
+.r-g-container .r-m-content{
+    position: absolute;
+    right: 0;
+    width: calc(100% - 250px);
+    height:100%;
+}
+/*.r-g-container.r-m-content是右盒子*/
+.u-items{
+    width:107%;
+    height: 100%;
+    overflow:auto;
+    background:white;
+}
+.items{
+    border-right: 1px solid #ccc;
+}
+.u-items span{
+    white-space: nowrap;
+}
+/*.u-items是左边的盒子的是class*/
+.items li{
+    text-indent:15px;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+    transition: all 1s; 
+}
+.items li span{
+    position: relative;
+    display: inline-block;
+    width:80%;
+    line-height: .4rem;
+    color: #333;
+    text-indent:22px;
+    white-space:nowrap;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    *display:inline;
+    *zoom:1;
+}
+/*以上items是一级菜单的calss*/
+.item li:last-child{
+    border-bottom:none;
+}
+.item{
+    background-color: #d5fcff;
+}
+.item li{
+    text-indent:0.4rem;
+    border-bottom: dashed 1px #CCCCCC;
+    text-indent:0.3rem;
+}
+.item2 li {
+    text-indent: .45rem;
+    border-bottom: dashed 1px #CCCCCC;
+}
+.item2{
+    background-color: #a5f1e8;
+} 
+.items>li>span{
+    font-size: .16rem;
+    background:url(/image/arr.png)no-repeat 0px 12px;
+}
+.item span[date-type='staff']{
+    font-size: .15rem;
+    background:url(/image/icon_user@2x.png)no-repeat 0px 12px;
+}
+.item span[date-type='task']{
+    font-size: .14rem;
+    background:url(/image/task.png)no-repeat 0rem 12px;
+}
+.items > ul > span{
+    font-size: 1em;
+}
+/*以上item二级菜单的class*/
+/*以下是右边的盒子*/
+.r-form {
+    width: 80%;
+    margin: 5px auto;
+    padding:5px 0;
+}
+.r-form p{
+    font-size: 1.02em;
+    font-weight:bold;
+}
+.r-form input{
+    width:5rem;
+    padding-left:0.1rem ;
+    margin-left:1.5rem;
+    font-weight: bold;
+    border: 1px solid #CCCCCC;
+    height: 0.3rem;
+    border-radius:0.05rem;
+    text-indent:0.2rem;
+}
+.r-form textarea{
+    width:5rem;
+    padding-left:0.1rem ;
+    margin-left:1.5rem;
+    font-weight: bold;
+    border: 1px solid #CCCCCC;
+    border-radius:0.05rem;
+    text-indent:0.2rem;
+}
+.r-form li{
+    font-size: 1em;
+    font-weight:bold;
+    line-height:0.3rem;}
+.r-ul-one span{
+    position: relative;
+    top:0.25rem;
+    display:inline-block ;
+}
+.r-ul-one li:first-child{
+    width:20%;
+}
+.r-ul-one li:last-child{
+    width:80%;
+}
+.r-ul-two li{
+    width:100%;
+}
+#execute_btn{
+    text-align: center;
+    padding: 0.12rem 1.02rem;
+    font-size: 0.18rem;
+    font-weight: bold;
+    letter-spacing: 0.02rem;
+    color: white;
+    background-color: #5bc9c9;
+    border-radius: 50px;
+    cursor: pointer;
+}
+.execute{
+    text-align:center;
+}
+.r-m-div{
+    width:100%;
+    height:100%;
+    margin:0 auto;
+}
+tr td:first-child{
+    text-align:center;
+}
+#tabs {
+    height: 100%;
+    width: 100%;
+    padding-bottom: 52px;
+    border-top: 1px solid #ccc;
+    font-size: .15rem;
+}
+#tabs div{
+    width: calc(100% + 12px);
+    height: 100%;
+    margin: 0 auto;
+}
+.tabs-two{
+    overflow-y:auto;
+}
+.tabs-box{
+    height:.5rem;
+}
+.tabs-two tr td:last-child{
+    text-align: left;
+    padding-left: 15px;
+    line-height: 150%;
+}
+.tabs-box li {
+    position: relative;
+    float:left;
+    line-height: .49rem;
+    padding: 0 .4rem;
+    border-bottom: #ccc 0.02rem #EFEFEF;
+    font-size: .17rem;
+    font-weight: 400;
+    cursor: pointer;
+}
+.tabs-underline{
+    border-bottom: 0.02rem solid #00CCCC; 
+    color:#00CCCC;
+}	
+.tabs-underline li{
+    color:#00CCCC;
+}
+/*以下是我的任务表格*/
+.task-table{
+    height:100%;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    box-sizing:border-box;
+    overflow: hidden;
+}
+.hgroup{
+    position: absolute;
+    width: 100%;
+    box-shadow:3px 8px 9px -2px #d5eaf1;
+    background-color: white;
+    z-index: 2;
+}
+.hgroup .time{
+    width: 100%;
+    height: 50%;
+    padding: 6px 0;
+    text-indent: 10px;
+    margin: 0;
+    overflow: hidden;
+}
+.hgroup .time input{
+    border: 1px  solid #CCCCCC;
+    height:18px;
+    padding: 3px 5px;
+    border-radius:3px;
+}
+.hgroup .time span{
+    height:25px;
+    line-height:25px;
+    font-size:16px;
+}
+.t-table{
+    width: calc(100% + 12px);
+    height:100%;
+    padding-top: 43px;
+    overflow-y: auto;
+}
+.t-table table{
+    width: 100%;
+}
+.t-table th{
+    background-color: #b1e6e6;
+    color: #666;
+    font-weight: 600;
+}

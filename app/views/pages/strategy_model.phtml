@@ -1,0 +1,194 @@
+<!-- start content table -->
+<div class="content_table">
+	<ul class="clearfix bottom"style="margin-bottom: 10px;position: relative;padding-top: 10px;">
+    	<li class="in_left  markup tab Pointer">交易金额</li>
+        <p class="in_right mright_ma"></p>
+    </ul>
+    <!--  分析图表 start -->
+  	<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+	<div id="main" style="width: 100%;height:3rem;border-bottom: 0.1rem solid #f5fafb;"></div>
+	<!--  分析图表 end-->
+    <!--  start table header  -->		    
+	<div class="table-head">
+        <table>
+            <colgroup><col /><col /><col /><col /><col /><col /><col /><col /><col /><col /></colgroup>
+            <thead>
+                <tr>
+                	<th>渠道名称</th>
+                	<th>2016-10-31</th>
+                	<th>2016-10-31</th>
+                	<th>2016-10-31</th>
+                	<th>2016-10-31</th>
+                	<th>2016-10-31</th>
+                	<th>2016-10-31</th>
+                	<th>2016-10-31</th>
+                	<th>2016-10-31</th>
+                	<th>重要程度</th>
+                </tr>
+            </thead>
+        </table>
+	</div>
+	<!--  end table header  -->
+	<!--  start table section  -->
+    <div class="table-body"style="width: 105% ;">
+     	<table id="stategy_table">
+           	<colgroup><col /><col /><col /><col /><col /><col /><col /><col /><col /><col /></colgroup>
+            <tbody>
+            </tbody>
+   		</table>
+	</div>	   		
+	<!--  end table section  -->
+</div>
+<!-- end content table -->
+<script src="/js/dates.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function(){
+	GoodList();
+	strategy();
+})
+$(window).resize(function(){onloadStrategy($('#strategy_model'))});
+// 基于准备好的dom，初始化echarts实例    
+function strategy(){
+	var objAction={
+		id:38
+	};
+	objAction=JSON.stringify(objAction);
+	$.ajax({
+	   	type:"get",
+	   	url:"/get/mysqlData",
+	   	data:{
+			j:objAction
+		},
+		beforeSend:function (){
+        	$('.loading').show();
+        },
+	    success: function (meg) {      	
+	        meg=JSON.parse(meg);
+	   		initChart(meg.details.plot_data.values);
+	   		onloadStrategy($('#strategy_model'));
+   			setTimeout(function(){$('.loading').hide()},1500);
+	   	}	   
+	});
+}  
+function  initChart(obj){
+	var rr=new Array(),tr=new Array(),_Date=new Array();
+	for(var i=0;i<obj.length;i++){
+		console.log(obj[i].pre_amount)	
+		_Date.push(obj[i].trans_date);
+		i==obj.length-1 ? rr.push("") : rr.push(obj[i].amount);
+		i==obj.length-1 ? tr.push(obj[i].pre_amount) : tr.push("");
+	}
+    	var myChart = echarts.init(document.getElementById('main'));
+    // 指定图表的配置项和数据
+    
+    var option = {
+	    title: {
+	        text: ''
+	    },
+	    tooltip : {
+	        trigger: 'axis'
+	    },
+	    legend: {
+	        data:['实际交易额','预测交易额']
+	    },
+	    toolbox: {
+	        feature: {
+	            saveAsImage: {}
+	        }
+	    },grid: {
+	    	top:'10%',
+	        left: '1%',
+	        right: '3%',
+	        bottom: '3%',
+	        containLabel: true
+	    },
+	    xAxis : [
+	        {
+	            type : 'category',
+	            boundaryGap : false,
+	            data : _Date
+	        }
+	    ],
+	    yAxis : [
+	        {
+	            type : 'value'
+	        }
+	    ],
+	    series : [
+	        {
+	            name:'实际交易额',
+	            type:'line',
+	            areaStyle: {"background-color":"rgba(0,0,0,0)"},
+	            data:rr
+	        },
+	        {
+	            name:'预测交易额',
+	            type:'line',
+	            symbol: 'circle',//实心
+	            symbolSize: 7,//点状大小
+	            areaStyle: {"background-color":"rgba(0,0,0,0)"},
+	            data:tr
+	        }
+	    ]};
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+}
+function GoodList(){
+	var objAction={
+		id:38
+	};
+	objAction=JSON.stringify(objAction);
+	$.ajax({
+		type:"get",
+		url:"/get/mysqlData",
+		data:{
+			j:objAction
+		},
+		beforeSend:function (){
+        	$('.loading').show();
+        },
+		success: function (meg) {      	
+            meg=JSON.parse(meg);
+			var  objMsg = meg.details.table_data.values;
+			var e="数据刷新日期："+meg.details.update_date.values[0].update_date;
+			$('.mright_ma').html(e);
+			// TH 日期 
+			console.log(meg.details.update_date.values[0].update_date)
+			Dates(meg.details.update_date.values[0].update_date,$('#strategy_model'));
+			for(var i=0;i<objMsg.length;i++){
+				var html='<tr><td><i class="sizeWidth">'+objMsg[i].variable_name+'</td>'+							
+						'<td><span>'+objMsg[i].value_sub1d+'</span></td>'+
+						'<td><span>'+objMsg[i].value_sub2d+'</span></td>'+
+						'<td><span>'+objMsg[i].value_sub3d+'</span></td>'+
+						'<td><span>'+objMsg[i].value_sub4d+'</span></td>'+
+						'<td><span>'+objMsg[i].value_sub5d+'</span></td>'+
+						'<td><span>'+objMsg[i].value_sub6d+'</span></td>'+
+						'<td><span>'+objMsg[i].value_sub7d+'</span></td>'+
+						'<td class="typeImg"><input class="border" type="text"placeholder='+objMsg[i].value_sub7d+'></td>'+
+						'<td><span>'+objMsg[i].variable_corr+'</span></td>'+
+				$(html).appendTo('#stategy_table');
+			}
+			onloadStrategy($('#strategy_model'));
+			setTimeout(function(){$('.loading').hide()},1500);
+		}
+	});
+}
+//  动态获取表格 宽高 值；								
+function onloadStrategy(e){
+	var thList=$(e).find('.table-head tr').eq(0).find('th');// tr(th) length
+	var trW=0;												//tr width
+	//超长名字专用	
+	var iWidth=($(e).find('.sizeWidth').parent('td').width()-10)/100;		
+	// 循环获取th总宽度
+	for(var i=0;i<thList.length;i++){
+		trW=trW+$(thList).eq(i).outerWidth();           		// TH 盒模型宽度;
+	}
+	//$('.container').css('height',containerH/100+'rem');					
+	// tbody width size
+	//	$(e).parent().css('overflow-y','initial')
+	$(e).find('.table-body').css({width:trW+16});
+	$(e).find('.sizeWidth').css("width",iWidth+'rem');							
+}
+
+</script>

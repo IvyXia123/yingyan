@@ -1,0 +1,14 @@
+/* private table style
+ --------------------*/
+col:nth-child(2n+1){
+	width: 13%;
+}
+col:nth-child(2n){
+	width: 10%;
+}
+.container col:nth-child(1){
+	width:7%;
+}
+.container col:nth-child(2){
+	width: 17%;
+}

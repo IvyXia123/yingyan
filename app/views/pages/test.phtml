@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="zh">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=9">
+        <style>
+            body {
+                margin:0;
+                font-family:'Lato', sans-serif;
+                background-color: #F9F9F9;
+            }
+
+        </style>
+
+        <script src="/js/jquery.min.js" type="text/javascript"></script>
+
+        <script>
+            $(document).ready(function () {
+                $.ajax({
+                    url: "/get/modelTree",
+                    async: true,
+                    type: 'POST',
+                    success: function (text) {
+                        try {
+                            var o = JSON.parse(text);
+                            //console.debug(o);
+                            formatModelTree(o);
+                            console.debug(JSON.stringify(troot));
+                        } catch (e) {
+                        }
+                    }
+                });
+            });
+            var troot = {};
+            function formatModelTree(list) {
+                
+                for (var i = 0; i < list.length; i++) {
+                    
+                    if (!troot.name) {
+                        troot.name = list[i].node1;
+                        troot.children = [];
+                    }
+                    
+                    var node2 = getChild(troot.children, list[i].node2);
+                    if (!node2) {
+                        console.debug(list[i].node2);
+                        var node2 = {};
+                        node2.name = list[i].node2;
+                        node2.children = [];
+                        troot.children.push(node2);
+                    }
+                    
+                    var node3 = getChild(node2.children, list[i].node3);
+                    if (!node3) {
+                        //console.debug(list[i].node2);
+                        var node3 = {};
+                        node3.name = list[i].node3;
+                        node3.children = [];
+                        node2.children.push(node3);
+                    }
+                    
+                    var node4 = getChild(node3.children, list[i].node4);
+                    if (!node4) {
+                        //console.debug(list[i].node2);
+                        var node4 = {};
+                        node4.name = list[i].node4;
+                        //node4.children = [];
+                        node3.children.push(node4);
+                    }
+                    node4.title = list[i].value;
+                }
+            }
+
+            function getChild(arr, child) {
+                for (var i=0;i<arr.length;i++) {
+                    //console.debug(arr[i].name + "--" + child);
+                    if (arr[i].name === child)
+                        return arr[i];
+                }
+                return undefined;
+            }
+        </script>
+
+    </head>
+    <body>
+    </body>
+</html>

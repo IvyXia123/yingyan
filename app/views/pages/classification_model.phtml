@@ -1,0 +1,69 @@
+<!-- start content table -->
+<div class="content_table g-table">
+    <!--  start table header  -->		    
+	<div class="table-head">
+        <table>
+            <colgroup><col /><col /><col /><col /></colgroup>
+            <thead>
+                <tr>
+                	<th>类别</th>
+                	<th>渠道个数</th>
+                	<th>类中心点</th>
+                	<th>类特征描述</th>
+                </tr>
+            </thead>
+        </table>
+	</div>
+	<!--  end table header  -->
+	<!--  start table content  -->
+    <div class="table-body" style="width: calc(100% + 16px);overflow-y: scroll;">
+     	<table id="classify_table">
+           	<colgroup><col /><col /><col /><col /></colgroup>
+            <tbody>
+            </tbody>
+   		</table>
+	</div>	   		
+	<!--  end table content  -->
+</div>
+<!-- end content table -->
+
+<script type="text/javascript">
+	var Channel_classification;
+	var number_number;
+	$(function(){
+		GoodList();
+	})
+function GoodList(){
+	var objAction={
+		id:39,
+	};
+	objAction=JSON.stringify(objAction);
+	$.ajax({
+		type:"get",
+		url:"/get/mysqlData",
+		data:{
+			j:objAction
+		},
+		beforeSend:function (){
+        	$('.loading').show();
+        },
+		success: function (meg) {      	
+            meg=JSON.parse(meg);
+			var  objMsg = meg.details.homepage.values;
+			for(var i=0;i<objMsg.length;i++){					
+				var html='<tr><td><a href="##" date-page="trait_detail" onclick="switchoverPage(this),trait(this)">'+objMsg[i].clus_label+'</a></td>'+
+						 '<td><a href="##" date-page="trait_detail" onclick="switchoverPage(this),trait(this)">'+objMsg[i].channel_count+'</a></td>'+
+						 '<td><a href="##" date-page="features" onclick="switchoverPage(this),trait(this)">'+objMsg[i].cent_channel+'</a></td>'+
+						 '<td><a href="##" date-page="features" onclick="switchoverPage(this),trait(this)">'+objMsg[i].descr+'</a></td></tr>'
+				$(html).appendTo('#classify_table');
+			}
+			sizeTab();
+          	setTimeout(function(){$('.loading').hide()},1500);
+		}
+	});
+}
+function trait(e){
+	Channel_classification=$(e).parents('tr :first').children().html();
+}
+</script>
+

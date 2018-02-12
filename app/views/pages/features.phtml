@@ -1,0 +1,362 @@
+<div class="content_table g-table">					
+	<!-- start money amount -->
+	<section class="table_content"id="money_amount">
+	    <!--  start table header  -->		    
+ 		 <div class="table-head">
+	        <table>
+	            <colgroup><col /><col /><col /><col /><col /><col /><col /><col /><col /></colgroup>
+	            <thead>
+	                <tr style="height:0.5rem;">
+	                	<th style="margin: 0;background-color: white;color: #666;"></th>
+	                	<th colspan="5" style="width:calc(100% / 9 * 4.97);">基础图标</th>	
+	                	<th colspan="3" style="background: #e7c025;width:calc(100% / 9 * 3);">用劵类</th>
+	                </tr>
+	                <tr>
+	                	<th style="margin: 0;background-color: white;color: #666;">类别</th>
+	                	<th class="BG_d3f6f6"><i>平均注册人数</i></th>
+	                	<th class="BG_d3f6f6"><i>平均实名人数</i></th>
+	                	<th class="BG_d3f6f6"><i>平均绑卡人数</i></th>
+	                	<th class="BG_d3f6f6"><i>平均交易人数</i></th>
+	                	<th class="BG_d3f6f6"><i>平均交易金额</i></th>
+	                	<th class="BG_fff1b9"><i>现金劵用劵数</i></th>
+	                	<th class="BG_fff1b9"><i>现金劵用劵数</i></th>
+	                	<th class="BG_fff1b9"><i>新手劵劵数</i></th>
+	                </tr>
+	            </thead>
+            </table>
+   	</div>
+   			
+   			
+   		<!--  end table header  -->
+   		<!--  start table content  -->
+	    <div class="table-body">
+	     	<table id="fication_tables">
+	           	<colgroup><col/><col /><col /><col /><col /><col /><col /><col /><col/></colgroup>
+	            <tbody>
+	            </tbody>						            
+	   		</table>
+   		</div>
+   		
+   		
+   		
+   		
+   		
+   		<div class="chart">  			
+	   		<section id="diagramLeft"style="height: 2.5rem;width: 54%;"></section>
+	   		<section id="diagramRight"style="height: 2.5rem;width: 46%;"></section>
+   		</div> 				
+	<script type="text/javascript">
+		$(function(){
+			getTable();
+		})
+		function getTable(){
+			var objAction={
+				id:41,
+				clus_label:Channel_classification
+			};
+			objAction=JSON.stringify(objAction);
+			$.ajax({
+				type:"get",
+				url:"/get/mysqlData",
+				data:{
+					j:objAction
+				},
+				beforeSend:function (){
+		        	$('.loading').show();
+		        },
+				success: function (meg) {      	
+		            meg=JSON.parse(meg);
+					var objMsg=meg.details.homepage.values;
+					diagramLeft(objMsg);
+					diagramRight(objMsg);
+					for(var i=0;i<objMsg.length;i++){
+						var html='<tr><td><span>'+objMsg[i].clus_label+'</span></td>'+	
+								'<td><span>'+objMsg[i].avg_reg_cnt+'</span></td>'+
+								'<td><span>'+objMsg[i].avg_cert_cnt+'</span></td>'+
+								'<td><span>'+objMsg[i].avg_card_cnt+'</span></td>'+
+								'<td><span>'+objMsg[i].avg_trans_cnt+'</span></td>'+
+								'<td><span>'+objMsg[i].avg_trans_amt+'</span></td>'+
+								'<td><span>'+objMsg[i].avg_coupon_use_type_cash_cnt+'</span></td>'+
+								'<td><span>'+objMsg[i].avg_coupon_use_type_add_rate_cnt+'</span></td>'+
+								'<td><span>'+objMsg[i].avg_coupon_use_type_newcus_cnt+'</span></td></tr>'		
+						$(html).appendTo('#fication_tables');
+					}
+					sizeTab();
+					setTimeout(function(){$('.loading').hide()},1500);
+				}
+				
+			});
+		}
+function diagramLeft(obj){
+	var _name=[],_name1=[],_name2=[],_name3=[],_name4=[],_name5=[],_name6=[],_name7=[],_name8=[];
+	var _date=['平均注册人数','平均实名人数','平均绑卡人数','平均交易人数','平均交易金额'];
+	var myChart = echarts.init(document.getElementById('diagramLeft'));	
+	for(var i=0;i<obj.length;i++){
+		_name.push(obj[i].clus_label)
+		switch(i){
+			case 0:
+			_name1.push(obj[0].avg_reg_cnt);
+			_name1.push(obj[0].avg_cert_cnt);
+			_name1.push(obj[0].avg_card_cnt);
+			_name1.push(obj[0].avg_trans_cnt);
+			_name1.push(obj[0].avg_trans_amt);
+			
+			break;
+			case 1:
+			_name2.push(obj[1].avg_reg_cnt);
+			_name2.push(obj[1].avg_cert_cnt);
+			_name2.push(obj[1].avg_card_cnt);
+			_name2.push(obj[1].avg_trans_cnt);
+			_name2.push(obj[1].avg_trans_amt);
+			break;
+			case 2:
+			_name3.push(obj[2].avg_reg_cnt);
+			_name3.push(obj[2].avg_cert_cnt);
+			_name3.push(obj[2].avg_card_cnt);
+			_name3.push(obj[2].avg_trans_cnt);
+			_name3.push(obj[2].avg_trans_amt);
+			break;
+			case 3:
+			_name4.push(obj[3].avg_reg_cnt);
+			_name4.push(obj[3].avg_cert_cnt);
+			_name4.push(obj[3].avg_card_cnt);
+			_name4.push(obj[3].avg_trans_cnt);
+			_name4.push(obj[3].avg_trans_amt);
+			break;
+			case 4:
+			_name5.push(obj[4].avg_reg_cnt);
+			_name5.push(obj[4].avg_cert_cnt);
+			_name5.push(obj[4].avg_card_cnt);
+			_name5.push(obj[4].avg_trans_cnt);
+			_name5.push(obj[4].avg_trans_amt);
+			break;
+			case 5:
+			_name6.push(obj[5].avg_reg_cnt);
+			_name6.push(obj[5].avg_cert_cnt);
+			_name6.push(obj[5].avg_card_cnt);
+			_name6.push(obj[5].avg_trans_cnt);
+			_name6.push(obj[5].avg_trans_amt);
+			break;
+			case 6:
+			_name7.push(obj[6].avg_reg_cnt);
+			_name7.push(obj[6].avg_cert_cnt);
+			_name7.push(obj[6].avg_card_cnt);
+			_name7.push(obj[6].avg_trans_cnt);
+			_name7.push(obj[6].avg_trans_amt);
+			break;
+			case 7:
+			_name8.push(obj[7].avg_reg_cnt);
+			_name8.push(obj[7].avg_cert_cnt);
+			_name8.push(obj[7].avg_card_cnt);
+			_name8.push(obj[7].avg_trans_cnt);
+			_name8.push(obj[7].avg_trans_amt);
+			break;
+		}
+	}
+	
+			option = {
+			    tooltip : {
+			        trigger: 'axis',
+			        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+			            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+			        }
+			    },
+			    legend: {
+			        data:_name
+			    },
+			    grid: {
+			        top:'14%',
+			        left: '0',
+			        right: '4%',
+			        bottom: '3%',
+			        containLabel: true
+			    },
+			    xAxis : [
+			        {
+			            type : 'category',
+			            data :_date
+			        }
+			    ],
+			    yAxis : [
+			        {
+			            type : 'value'
+			        }
+			    ],
+			    series : [
+			        {
+			            name:_name[0],
+			            type:'bar',
+			            data:_name1
+			        },
+			        {
+			            name:_name[1],
+			            type:'bar',
+			            data:_name2
+			        },
+			        {
+			            name:_name[2],
+			            type:'bar',
+			            data:_name3
+			        },
+			        {
+			            name:_name[3],
+			            type:'bar',			           
+			            data:_name4
+			        },
+			        {
+			            name:_name[4],
+			            type:'bar',
+			            barWidth : 5,
+			            data:_name5
+			        },
+			        {
+			            name:_name[5],
+			            type:'bar',
+			            barWidth : 5,
+			            data:_name6
+			        },
+			        {
+			            name:_name[6],
+			            type:'bar',
+			            barWidth : 5,
+			            data:_name7
+			        },
+			        {
+			            name:_name[7],
+			            type:'bar',
+			            barWidth : 5,
+			            data:_name8
+			        }
+			        
+			    ]
+			};
+	  myChart.setOption(option);
+}
+function diagramRight(obj){                                                                                  
+	var _name=[],_name1=[],_name2=[],_name3=[],_name4=[],_name5=[],_name6=[],_name7=[],_name8=[];
+	var _date=['现金券用券数','加息券用券数','新手券用券数'];                                                                                                 
+	var myChart = echarts.init(document.getElementById('diagramRight'));	                                 
+	for(var i=0;i<obj.length;i++){ 
+		_name.push(obj[i].clus_label)
+		switch(i){
+			case 0:
+			_name1.push(obj[0].avg_coupon_use_type_cash_cnt);
+			_name1.push(obj[0].avg_coupon_use_type_add_rate_cnt);
+			_name1.push(obj[0].avg_coupon_use_type_newcus_cnt);		
+			break;
+			case 1:
+			_name2.push(obj[1].avg_coupon_use_type_cash_cnt);
+			_name2.push(obj[1].avg_coupon_use_type_add_rate_cnt);	
+			_name2.push(obj[1].avg_coupon_use_type_newcus_cnt);		
+			break;
+			case 2:
+			_name3.push(obj[2].avg_coupon_use_type_cash_cnt);
+			_name3.push(obj[2].avg_coupon_use_type_add_rate_cnt);
+			_name3.push(obj[2].avg_coupon_use_type_newcus_cnt);			
+			break;
+			case 3:
+			_name4.push(obj[3].avg_coupon_use_type_cash_cnt);
+			_name4.push(obj[3].avg_coupon_use_type_add_rate_cnt);
+			_name4.push(obj[3].avg_coupon_use_type_newcus_cnt);			
+			break;
+			case 4:
+			_name5.push(obj[4].avg_coupon_use_type_cash_cnt);
+			_name5.push(obj[4].avg_coupon_use_type_add_rate_cnt);
+			_name5.push(obj[4].avg_coupon_use_type_newcus_cnt);			
+			break;
+			case 5:
+			_name6.push(obj[5].avg_coupon_use_type_cash_cnt);
+			_name6.push(obj[5].avg_coupon_use_type_add_rate_cnt);
+			_name6.push(obj[5].avg_coupon_use_type_newcus_cnt);			
+			break;
+			case 6:
+			_name7.push(obj[6].avg_coupon_use_type_cash_cnt);
+			_name7.push(obj[6].avg_coupon_use_type_add_rate_cnt);
+			_name7.push(obj[6].avg_coupon_use_type_newcus_cnt);			
+			break;
+			case 7:
+			_name8.push(obj[7].avg_coupon_use_type_cash_cnt);
+			_name8.push(obj[7].avg_coupon_use_type_add_rate_cnt);
+			_name8.push(obj[7].avg_coupon_use_type_newcus_cnt);			
+			break;
+		}                                                                          			                                                             
+	}					                                                                                     
+			option = {                                                                                       
+			    tooltip : {                                                                                  
+			        trigger: 'axis',                                                                         
+			        axisPointer : {            // 坐标轴指示器，坐标轴触发有效                                             
+			            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'                                
+			        }                                                                                        
+			    },                                                                                           
+			    legend: {                                                                                    
+			        data:_name                                                                               
+			    },                                                                                           
+			    grid: {   
+			    	top:'14%',                                                                                   
+			        left: '0%',                                                                              
+			        right: '4%',                                                                             
+			        bottom: '3%',                                                                            
+			        containLabel: true                                                                       
+			    },                                                                                           
+			    xAxis : [                                                                                    
+			        {                                                                                        
+			            type : 'category',                                                                   
+			            data : _date                                                                         
+			        }                                                                                        
+			    ],                                                                                           
+			    yAxis : [                                                                                    
+			        {                                                                                        
+			            type : 'value'                                                                       
+			        }                                                                                        
+			    ],                                                                                           
+			    series : [                                                                                   
+			        {
+			            name:_name[0],
+			            type:'bar',
+			            data:_name1
+			        },
+			        {
+			            name:_name[1],
+			            type:'bar',
+			            data:_name2
+			        },
+			        {
+			            name:_name[2],
+			            type:'bar',
+			            data:_name3
+			        },
+			        {
+			            name:_name[3],
+			            type:'bar',			           
+			            data:_name4
+			        },
+			        {
+			            name:_name[4],
+			            type:'bar',
+			            barWidth : 5,
+			            data:_name5
+			        },
+			        {
+			            name:_name[5],
+			            type:'bar',
+			            barWidth : 5,
+			            data:_name6
+			        },
+			        {
+			            name:_name[6],
+			            type:'bar',
+			            barWidth : 5,
+			            data:_name7
+			        },
+			        {
+			            name:_name[7],
+			            type:'bar',
+			            barWidth : 5,
+			            data:_name8
+			        }                                                                                    
+			    ]                                                                                            
+			};                                                                                               
+	  myChart.setOption(option);                                                                             
+} 
+	</script>
+</html>

@@ -1,0 +1,36 @@
+		<link rel="stylesheet" type="text/css" href="css/download.css"/>
+			<section class="download-content">
+				<h1 class="download-name">
+					<div>文件名</div>
+					<div>操作</div>
+				</h1>
+				<div class="download-item">
+					<table border="0" cellspacing="" cellpadding="">
+						<colgroup>
+							<col />
+							<col />
+						</colgroup>
+						<tr>
+							<td>鹰眼名单下载chrome插件</td>
+							<td><a href='http://eye.xiwanglife.com/download/hawkeyedownload.crx' download='鹰眼名单下载chrome插件.crx'>下载</a></td>
+						</tr>
+					</table>
+				</div>
+			</section>
+	<script type="text/javascript">
+		$(function(){
+			tabSize();
+			removeDownload();
+		})
+		function tabSize(){
+			$('.download-item').css('height',$('.download-content').height()-$('.download-name').height()).css('width','910px');
+		}
+		function removeDownload(){
+			$('.g-download').click(function () {
+		        $(this).hide();
+		    })
+		    $('.g-download .download-content').click(function (event) {
+		        event.stopPropagation();
+		    })
+		}
+	</script>

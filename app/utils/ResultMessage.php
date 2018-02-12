@@ -1,0 +1,43 @@
+<?php
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+namespace eye\Utils;
+
+/**
+ * Description of ResultMessage
+ *
+ * @author zhaopeng
+ */
+class ResultMessage {
+    
+    public $code = 0;
+    public $message = "";
+    public $param = array();
+    
+    function getCode() {
+        return $this->code;
+    }
+
+    function getMessage() {
+        return $this->message;
+    }
+
+    function setCode($code) {
+        $this->code = $code;
+    }
+
+    function setMessage($message) {
+        $this->message = $message;
+    }
+    
+    function toJson(){
+        //return preg_replace("#\\\u([0-9a-f]+)#ie","iconv('UCS-2','UTF-8', pack('H4', '\\1'))",json_encode($this));
+        return json_encode($this);
+    }
+
+}

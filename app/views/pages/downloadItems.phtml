@@ -1,0 +1,55 @@
+<style type="text/css">
+	#downloadItems td,
+	#downloadItems th{
+		line-height: 40px;
+	}
+	#downloadItems th{
+		font-size: 16px;
+	}
+	#downloadItems col{width: 50%;}
+</style>
+<div class="content_table g-table">
+	<div class="table-head">
+		<table border="" cellspacing="" cellpadding="">
+			<colgroup>
+				<col />
+				<col />
+		</colgroup>
+		<tbody>
+			<tr>
+				<th>名称</th>
+				<th>下载日期</th>
+			</tr>
+		</tbody>
+		</table>
+	</div>
+	<div class="table-body">
+		<table border="" cellspacing="" cellpadding="">
+			<colgroup>
+				<col />
+				<col />
+			</colgroup>
+			<tbody>
+			</tbody>
+		</table>
+	</div>
+</div>
+<script type="text/javascript">
+	var d = {};
+	d.getDatas = function(){
+		document.location = String(document.location).split('#')[0] + "#downloadItems";
+		$.ajax({
+			type:"get",
+			url:"/get/downHistory",
+			dataType:'json',
+			async:true,
+			success:function(data){
+				for (x in data){
+					var tr = '<tr><td><a href="'+data[x].file_path+'" download="'+data[x].down_name+'">'+data[x].down_name+'</a></td>'+'<td>'+data[x].time+'</td></tr>'
+					$('#downloadItems .table-body tbody').append(tr);
+				}
+			}
+		});
+	}
+	d.getDatas();
+</script>

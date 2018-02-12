@@ -1,0 +1,232 @@
+<div class="table_nav">
+	<ul class="clearfix bottom"  >
+		<li class="in_left ma markup"><a href="javascript:;" class="active">交易金额</a></li>
+		<li class="in_left ma"><a href="javascript:;">注册人数</a></li>
+		<li class="in_right"style="padding-bottom: 0.1rem; color: #000;" id="date_table"></li>
+	</ul>
+</div>
+<div class="content_table g-table">					
+	<!-- start money amount -->
+	<section class="table_content"id="money_amount">
+	<!--  start table header  -->		    
+		<div class="table-head">
+		    <table>
+		        <colgroup><col /><col /><col /><col /><col /><col /><col /><col /><col /></colgroup>
+		        <thead>
+		            <tr>
+		            	<th>渠道名称</th>
+		            	<th></th>	
+		            	<th></th>	
+		            	<th></th>	
+		            	<th></th>	
+		            	<th></th>	
+		            	<th></th>	
+		            	<th></th>	
+		            	<th class="status">状态</th>
+		            </tr>
+		        </thead>
+		    </table>
+		</div>
+		<!--  end table header  -->
+		<!--  start table content  -->
+		<div class="table-body">
+		 	<table id="money_table">
+		       	<colgroup><col /><col /><col /><col /><col /><col /><col /><col /><col/></colgroup>
+		        <tbody>						            
+		        </tbody>						            
+			</table>
+		</div>	   		
+		<!--  end table content  -->
+	</section>
+	<!-- end money amount -->	
+	<!-- start people number  -->
+	<section class="table_content"id="people_number"style="display: none;">
+		<!--  start table header  -->		    
+		<div class="table-head">
+		    <table>
+		        <colgroup><col /><col /><col /><col /><col /><col /><col /><col /><col /></colgroup>
+		        <thead>
+		            <tr>
+		            	<th>渠道名称</th>
+		            	<th></th>	
+		            	<th></th>	
+		            	<th></th>	
+		            	<th></th>	
+		            	<th></th>	
+		            	<th></th>	
+		            	<th></th>	
+		            	<th class="status">状态</th>
+		            </tr>
+		        </thead>
+		    </table>
+		</div>
+		<!--  end table header  -->
+		<!--  start table content  -->
+		<div class="table-body">
+		 	<table id="people_table">
+		       	<colgroup><col /><col /><col /><col /><col /><col /><col /><col /><col/></colgroup>
+		        <tbody>	
+		        </tbody>						            
+			</table>
+		</div>	   		
+		<!--  end table content  -->  		
+		<!-- end people number  -->
+	</section>	
+	<!-- 状态提示框  -->
+    <div class="expression">
+		<ul class="eimg">
+			<li><img src="image/green.png" alt=""/>交易金额为上升趋势</li>
+			<li><img src="image/yellow.png" alt=""/>交易金额为下降趋势，下降幅度小于5%</li>
+			<li><img src="image/red.png" alt="" />交易金额为下降趋势，下降幅度大于5%</li>
+		</ul>
+	</div>
+</div>
+<script src="/js/dates.js" type="text/javascript"></script>
+<script type="text/javascript">
+var ChannelName;
+/* ---------------------------- Methods perform area ------------------------------ */
+$(function(){
+	getGoodList();
+	getPeopleList();
+	//table_size();
+	$('.table_nav li').click(function(){
+		$('.table_nav').find('li').removeClass('markup');
+		$(this).addClass('markup');
+		var Index=$(this).index();
+		$('.content_table .table_content').eq(Index).show().siblings().hide();
+	});
+});
+$(document).ready(function(){	
+    $(".status").mouseenter(function(){
+    	$(".expression").show();
+    }).mouseleave(function(){
+  		$(".expression").hide();
+	})
+})	
+/* ---------------------------- Methods area ------------------------------ */
+function getGoodList(){
+	var objAction={
+			id:35
+		};
+	objAction=JSON.stringify(objAction);
+	$.ajax({
+		type:"get",
+		url:"/get/mysqlData",
+		data:{
+			j:objAction
+		},
+		beforeSend:function (){
+        	$('.loading').show();
+        },
+		success: function (meg) {    				
+            meg=JSON.parse(meg);
+			var objMsg=meg.details.homepage.values;
+			var e="数据刷新日期："+meg.details.update_date.values[0].update_date;
+			var _img;
+			$('#date_table').html(e);
+			// TH 日期 
+			Dates(meg.details.update_date.values[0].update_date,$('#money_amount'));
+			for(var i=0;i<objMsg.length;i++){					
+				if(objMsg[i].sigal=="green"){
+					_img="image/green.png";
+				}else if(objMsg[i].sigal=="yellow"){
+					_img="image/yellow.png";
+				}else if(objMsg[i].sigal=="red"){
+					_img="image/red.png";
+				}			            		            
+				var html='<tr><td><a href="##" class="sizeWidth" onclick="switchoverPage(this),thisHTML(this)" date-page="moneyWarning">'+objMsg[i].market_channel+'</a></td>'+
+						'<td><span>'+objMsg[i].trans_amt_sub7d+'</span></td>'+
+						'<td><span>'+objMsg[i].trans_amt_sub6d+'</span></td>'+
+						'<td><span>'+objMsg[i].trans_amt_sub5d+'</span></td>'+
+						'<td><span>'+objMsg[i].trans_amt_sub4d+'</span></td>'+
+						'<td><span>'+objMsg[i].trans_amt_sub3d+'</span></td>'+
+						'<td><span>'+objMsg[i].trans_amt_sub2d+'</span></td>'+
+						'<td><span>'+objMsg[i].trans_amt_sub1d+'</span></td>'+
+						'<td class="typeImg"><img src='+_img+' alt=""/></td></tr>';
+				$(html).appendTo('#money_table');				
+			}
+			tableSize();
+			setTimeout(function(){$('.loading').hide()},1500);
+		}
+	})
+}
+
+function getPeopleList(){
+	var objAction={
+		id:26
+	};
+	objAction=JSON.stringify(objAction);
+	$.ajax({
+		type:"get",
+		url:"/get/mysqlData",
+		data:{
+			j:objAction
+		},
+		beforeSend:function (){
+        	$('.loading').show();
+        },
+		success: function (meg) {      	
+            meg=JSON.parse(meg);
+			var objMsg=meg.details.homepage.values;
+			var _img;
+			var e="数据刷新日期："+meg.details.update_date.values[0].update_date;
+			// TH 日期 
+			Dates(meg.details.update_date.values[0].update_date,$('#people_number'));
+			for(var i=0;i<objMsg.length;i++){
+				if(objMsg[i].sigal=="green"){
+					_img="image/green.png";
+				}else if(objMsg[i].sigal=="yellow"){
+					_img="image/yellow.png";
+				}else if(objMsg[i].sigal=="red"){
+					_img="image/red.png";
+				}
+				var html='<tr><td><a href="##" class="sizeWidth" onclick="switchoverPage(this),thisHTML(this)" date-page="peopleWarning">'+objMsg[i].market_channel+'</a></td>'+
+						'<td><span>'+objMsg[i].trans_amt_sub7d+'</span></td>'+
+						'<td><span>'+objMsg[i].trans_amt_sub6d+'</span></td>'+
+						'<td><span>'+objMsg[i].trans_amt_sub5d+'</span></td>'+
+						'<td><span>'+objMsg[i].trans_amt_sub4d+'</span></td>'+
+						'<td><span>'+objMsg[i].trans_amt_sub3d+'</span></td>'+
+						'<td><span>'+objMsg[i].trans_amt_sub2d+'</span></td>'+
+						'<td><span>'+objMsg[i].trans_amt_sub1d+'</span></td>'+
+		    			'<td class="typeImg"><img src='+_img+' alt=""/></td></tr>';
+				$(html).appendTo('#people_table');
+			}
+			tableSize();
+			setTimeout(function(){$('.loading').hide()},1500);
+		}
+	});
+}
+function thisHTML(e){
+	ChannelName=$(e).html();
+}
+// 选项卡切换 
+function marckUp(){
+	$('.clearfix li').click(function(){
+		$('.clearfix li').removeClass('markup');
+		$(this).addClass('markup');
+	})
+}
+
+
+//  动态获取表格 宽高 值；								
+function tableSize(){
+	var $this = $('#warning_model').find('.g-table');
+	var count = 0;
+	var $firstTab = $this.find('.table-head:first');
+	var $lastTab = $this.find('table:last');
+	var listTh = $this.find('tr:first').children('th');
+	var widthName = $this.find('.sizeWidth').parent('td').width()-10;	
+	for(var i=0;i<listTh.length;i++){
+		count=count+$(listTh).eq(i).outerWidth();
+	}
+	setTimeout(function(){
+		$this.css('height',$this.parent().height()-$this.prev().outerHeight());
+		var size=$this.height()-$firstTab.outerHeight();
+		$this.children().css('height','100%')
+		$this.find('.table-body').css({width:count+13,height:size});
+		$this.find('.sizeWidth').css("width",widthName);
+	    $this.find('tr').css('width',count);	    
+	},30)
+}
+$(window).resize(tableSize)
+</script>

@@ -1,0 +1,176 @@
+<div class="content_table g-table">
+	<ul class="clearfix bottom"style="margin-bottom: 10px;position: relative;padding-top: 10px;">
+    	<li class="fl  markup tab Pointer">交易金额</li>
+        <li class="fr mright_ma"style="position: absolute;" id="date_table" ></li>
+    </ul>
+    <!--  分析图表 start -->
+  	<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+	<div id="main" style="width:100%;height:3rem;"></div>
+	<!--  分析图表 end-->
+	<!--  start table header  -->
+	<div class="table-head">
+		<table>
+			<colgroup>
+					<col />
+					<col />
+					<col />
+					<col />
+					<col />
+					<col />
+					<col />
+					<col />
+					<col />
+			</colgroup>
+			<tbody>
+				<tr>
+					<th>影响因子</th>
+					<th>2018-12-19</th>
+					<th>2019-10-10</th>
+					<th>2017-01-29</th>
+					<th>2016-04-18</th>
+					<th>2015-02-03</th>
+					<th>2016-04-31</th>
+					<th>2014-06-18</th>
+					<th>相关性</th>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<!--  end table header  -->
+	<!-- start table header-->
+	<div class="table-body">
+		<table id="money_tables">
+			<colgroup>
+				<col />
+				<col />
+				<col />
+				<col />
+				<col />
+				<col />
+				<col />
+				<col />
+				<col />
+			</colgroup>
+			<tbody>
+			</tbody>
+		</table>
+	</div>
+	<!--  end table header  -->
+</div>
+<!--<script src="js/echarts.js" type="text/javascript"></script>-->
+<script type="text/javascript">
+	$(function(){
+		getMoneyWarning();
+	});	
+function getMoneyWarning(){
+	var objAction={
+		id:36,
+		market_channel:ChannelName
+	};
+	objAction=JSON.stringify(objAction);
+	$.ajax({
+		type:"get",
+		url:"/get/mysqlData",
+		data:{
+			j:objAction
+		},
+		beforeSend:function (){
+        	$('.loading').show();
+        },
+		success: function (meg) {      	
+            meg=JSON.parse(meg);
+			var  objMsg = meg.details.sigfactor.values;
+			initChart(meg.details.plot_date.values);
+			var e="数据刷新日期："+meg.details.update_date.values[0].update_date;
+			$('.mright_ma').html(e);
+			// TH 日期 
+			Dates(meg.details.update_date.values[0].update_date,$('#moneyWarning'));
+			for(var i=0;i<objMsg.length;i++){
+				var html='<tr><td><i class="sizeWidth">'+
+						objMsg[i].sig_factor+'</i></td>'+	
+						'<td><span>'+objMsg[i].factor_value_sub7d+'</span></td>'+
+						'<td><span>'+objMsg[i].factor_value_sub2d+'</span></td>'+
+						'<td><span>'+objMsg[i].factor_value_sub3d+'</span></td>'+
+						'<td><span>'+objMsg[i].factor_value_sub4d+'</span></td>'+
+						'<td><span>'+objMsg[i].factor_value_sub5d+'</span></td>'+
+						'<td><span>'+objMsg[i].factor_value_sub6d+'</span></td>'+
+						'<td><span>'+objMsg[i].factor_value_sub1d+'</span></td>'+			
+						'<td><span>'+objMsg[i].correlation+'</span></td></tr>';
+				$(html).appendTo('#money_tables');
+			}
+			sizeTab();
+          	setTimeout(function(){$('.loading').hide()},1500);
+		}
+	});
+}
+function  initChart(obj){
+	var mr=new Array(),mt=new Array(),_mDate=new Array();
+	for(var i=0;i<obj.length;i++){
+		mr.push(obj[i].trans_amount);
+		_mDate.push(obj[i].trans_date);
+		//  筛选过滤掉 预警值为 0  的值
+		if(i==0 && obj[i].mv_trans_amount==0){
+			mt.push("");
+		}else{
+			if(obj[i].mv_trans_amount==0 && obj[i-1].mv_trans_amount==0){
+				mt.push("");
+			}else{
+				mt.push(obj[i].mv_trans_amount);
+			}
+		}		
+	}
+    	var myChart = echarts.init(document.getElementById('main'));
+    // 指定图表的配置项和数据   
+    var option = {
+	    title: {
+	        text: ''
+	    },
+	    tooltip : {
+	        trigger: 'axis'
+	    },
+	    legend: {
+	        data:['交易额','长期趋势']
+	    },
+	    toolbox: {
+	        feature: {
+	            saveAsImage: {}
+	        }
+	    },
+	    grid: {
+	    	top:'15%',
+	        left: '1%',
+	        right: '3%',
+	        bottom: '3%',
+	        containLabel: true
+	    },
+	    xAxis : [
+	        {
+	            type : 'category',
+	            boundaryGap : false,
+	            data : _mDate
+	        }
+	    ],
+	    yAxis : [
+	        {
+	            type : 'value'
+	        }
+	    ],
+	    series : [
+	        {
+	            name:'交易额',
+	            type:'line',
+	            areaStyle: {"background-color":"rgba(0,0,0,0)"},
+	            data:mr
+	        },
+	        {
+	            name:'长期趋势',
+	            type:'line',	            
+	            areaStyle: {"background-color":"rgba(0,0,0,0)"},
+	            data:mt
+	        }
+	    ]};
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+}
+</script>

@@ -1,0 +1,328 @@
+@import url("base.css");
+/*  ==================  container   ==================*/
+/*   container header
+  -------------------*/
+.container{
+	position: relative;
+	width: 90%;
+	margin: 0 auto;
+	overflow: hidden;
+}
+.container .container_show{
+	display: block;
+}
+.container>section{
+	display: none;
+	position: absolute;
+	overflow: hidden;
+	width:100%;
+	height:100%;	
+	top: 0;
+	left: 0;
+}
+/*  container table
+ --------------------*/
+.content_table{
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+}
+table .item-name{
+	position: absolute;
+	text-align: center;
+	display: inline-table;
+	line-height: 120%;
+	word-break: break-all;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+}
+table a:hover{
+	color: #0999CC;
+	text-decoration: underline;
+}
+/*  table 表头固定格式
+ ------------------*/
+.table-head{
+	color:#000;
+	font-size: 0.16rem;
+}
+.table-body{
+	width: calc(100% + 12px);
+	height: auto;
+	max-height: 100%;
+	padding-bottom: 3px;
+	font-size: 0.14rem;
+    border-bottom: 1px solid #a59f9f;
+    overflow-y:scroll;
+    overflow-x: auto;
+}
+.table-body tr:nth-child(2n+1) td{
+	/*background-color:#f2f2f2;*/
+}
+/* type img
+ -------------------*/
+.typeImg{
+	position: relative;
+	overflow: hidden;
+}
+.typeImg img{
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	margin: auto;
+	border-radius: 50%;
+	width: 0.25rem;
+	height: 0.25rem;
+}
+/*  col private style
+ -------------------------------------------*/
+#classification_model col{
+	width: 25%;
+}
+#warning_model col{
+	width: 10%;
+}
+#warning_model table col:first-child{
+	width: 23%;
+}
+#warning_model table col:nth-child(9){
+	width: 7%;
+}
+#peopleWarning col,#moneyWarning col{
+	width:10%;
+}
+#peopleWarning table col:first-child,#moneyWarning table col:first-child{
+	width: 24%;
+}
+/* class_features
+ -----------*/
+.BG_d3f6f6 {
+    background-color: #d3f6f6;
+    color: #333;
+}
+.BG_fff1b9 {
+    background-color: #fff1b9;
+     color: #333;
+}
+#features{
+	height: 100%;
+    width: calc(100% + 30px);
+	padding-left: 0.01rem;
+	overflow-y:scroll;
+	height: 100%;
+}
+#features .content_table{
+  	overflow-x:hidden;
+}
+#features i{
+	width: 100%;
+	padding: 0 0.05rem;
+	box-sizing: border-box;
+}
+#features table{
+   width:auto;
+}
+#features tr{
+	display: block;
+	width: 100%;
+	height: 0.5rem;
+	overflow: hidden;
+}
+/*#features th{
+	height: calc(100% /2);
+}*/
+#features th,#features td{
+	width: calc(100% /9);
+	float: left;
+	box-sizing: border-box;
+	margin-left: -0.01rem;
+}
+#features tr td:first-child{
+	margin: 0;
+}
+#features .chart{
+	padding-top: 0.1rem;
+	width: 100%;
+	clear: both;
+}
+#features .chart section{
+	float: left;
+}
+/*strategy_model
+ -----------------*/
+#strategy_model col{
+	width:9.2%;
+}
+#strategy_model col:first-child{
+	width: 19.4%;
+}
+#strategy_model col:last-child{
+	width: 7%;
+}
+#strategy_model .border{
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	margin: auto;
+	display: block;
+	width:0.6rem;
+	height: 25%;				
+	padding:0.1rem;
+	border: 0.01rem solid #ccc;
+	border-radius: 0.05rem;
+}
+/* chartTable  */
+.chartTable .content_table{
+		background:#FFF;
+		box-sizing: border-box;
+		/*border:0.013rem solid  #cccccc;*/
+	}
+	
+.chartTable .clearfix .markup{
+	position: relative;
+	border-bottom: 0.02rem solid #76e4e3;
+	color: #5fcccb;
+	padding: 0.08rem 0.2rem;
+	bottom: -0.02rem;
+}
+
+.chartTable .mright_ma{
+	height: 0.28rem;
+	position: absolute;
+	right: 0.1rem;
+	bottom: 0;
+	color: #666;
+}
+.chartTable .table-body,.chartTable .table-head{
+	position: relative;
+}
+#g-container .chartTable{
+	overflow-y: scroll;
+	width: calc(100% + 16px);
+	height: 100%;
+	background-color: white;
+}
+/*version */
+.version{
+	width: 1.5rem;
+	position: absolute;
+	top: 0.74rem;
+	right: 0;
+	color: #00CCCC;
+	overflow: hidden;
+	z-index: 5;
+	
+}
+.version h4{
+	font-weight: 400;
+	width: 100%;
+	padding: 0.05rem 0;
+	text-align: center;
+}
+/*         loading
+ -------------------------------------------------*/
+.loading{
+	display:none;
+	/*background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#0000ff)) !important;*/
+	/*background: -ms-linear-gradient(top, #fff, #0000ff);      */  /* IE 10 */
+	/*background:-moz-linear-gradient(top, #fff, #0000ff);*//*火狐*/ 	
+	/*background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#0000ff));*/      /* Safari 4-5, Chrome 1-9*/	
+	/*background: -webkit-linear-gradient(top, #fff, #0000ff);*/   /*Safari5.1 Chrome 10+*/	
+	/*background: -o-linear-gradient(top, #fff, #0000ff);*/  /*Opera 11.10+*/
+	background-color: #f5fafb;
+	position: absolute;
+	overflow: hidden;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	z-index: 99;
+}
+.loader {
+    width: 150px;
+ 	position: absolute;
+ 	top: 50%;
+ 	left: 50%;
+ 	transform: translate(-50%,-50%);
+}
+.loader .loading-1 {
+    position: relative;
+    width: 100%;
+    height: 10px;
+    border: 1px solid #0000fc;
+    border-radius: 10px;
+    animation: turn 3s linear 1.2s infinite;
+}
+.loader .loading-1:before {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 0%;
+    height: 100%;
+    background: #0000fc;
+    box-shadow: 10px 0px 15px 0px #0000fc;
+    animation: load 1.5s linear infinite;
+}
+.loader .loading-2 {
+    width: 100%;
+    position: absolute;
+    top: 10px;
+    color: #0000fc;
+    font-size: 22px;
+    text-align: center;
+    animation: bounce 1.5s  linear infinite;
+}
+@keyframes load {
+    0% {
+        width: 0%;
+    }
+    87.5%, 100% {
+        width: 100%;
+    }
+}
+@keyframes turn {
+    0% {
+        transform: rotateY(0deg);
+    }
+    6.25%, 50% {
+        transform: rotateY(180deg);
+    }
+    56.25%, 100% {
+        transform: rotateY(360deg);
+    }
+}
+@keyframes bounce {
+    0%,100% {
+        top: 10px;
+    }
+    12.5% {
+        top: 30px;
+    }
+}
+#u-tip{
+	position:absolute;
+	top: 0;
+	padding:5px;
+	font-size: 14px;
+	border-radius: 3px;
+	box-shadow: 0 2px 3px 1px #666;
+	background-color:yellow;
+	color: #0999CC;
+	transition: all .3s;
+	opacity: 0;
+	
+}
+#u-tip:before{
+	content: "";
+	position: absolute;
+	top: 100%;
+	left: -webkit-calc(50% - 4.5px);
+	border: 8px solid transparent;
+	border-top: 9px solid yellow;
+	z-index: 10;
+}

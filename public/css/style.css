@@ -1,0 +1,828 @@
+
+/* base 
+ ---------------*/
+.section,.mylable,#menu>ul,#menu input{
+	border:0.01rem solid #CCC;
+	box-sizing: border-box;
+}
+.g-menu,.g-lable,.left_box li,.left_box a{
+	box-sizing: border-box;
+}
+.mylable,.editor{
+	height: .52rem;
+	line-height:.52rem;
+}
+#activity-creates{
+	height: 100%;
+	overflow: visible;
+	background-color: white;
+}
+#activity-creates>.section{
+	position: relative;
+	width: 100%;
+	height: 100%;
+	padding:0.05rem; 
+}
+/* module menu
+ -------------------------------------------------------*/
+.g-menu{
+	width:260px;
+	height: 100%;
+	overflow-x: hidden;
+	overflow-y:scroll ;
+	font-size: 0.15rem;
+}
+.mylable{
+	text-align:center;	
+	border-bottom: none;
+}
+.mylable li{
+	width: 50%;
+	height: 100%;
+	float: left;
+	border-bottom: .02rem solid #EFEFEF;
+}
+.mylable .mylableBorder{
+	border-bottom: .02rem solid #66cccc;
+}
+.mylableBorder a{color: #66cccc;}
+/* menu unit
+ ------------*/
+#menu{
+    width: 100%;
+}
+#menu>ul{
+	border-top: none;
+}
+#menu>ul>li{
+	border-bottom: 0.01rem solid #ccc;
+}
+#menu>ul>li>a{
+    z-index: 2;
+    line-height: 0.5rem;
+    text-align: left;
+    text-indent: 0.45rem;
+    background: url(/image/arr.png)no-repeat 0.13rem 0.16rem; 
+}
+#menu>ul>li>ul{
+	padding-right:0.15rem;
+    padding-left: 0.15rem;
+    background:#ebfcfe ;
+    box-shadow: 0 -0.02rem 0.03rem -0.013rem #ccc;
+    box-sizing: border-box;      
+}
+#menu>ul>li>ul>li a{
+    line-height: 0.4rem;
+}
+#menu>ul>li>ul>li>a{	
+	border-top: 0.013rem dashed #ccc;	
+    background-image: url(/image/dropdown.png);
+    background-repeat: no-repeat;
+    background-position: right 0.18rem ;    
+}
+#menu>ul>li>ul>li:first-child>a{
+    border: none;
+}
+#menu>ul>li>ul>li>ul>li>a{	
+    text-indent: 0.4rem;
+	background-image: url(/image/33.png);
+    background-repeat: no-repeat;
+    background-position: 0.1rem 0.14rem;
+    background-size: 7% 33%;
+}
+#menu input{
+	width: 100%;
+	padding: 3%;
+	margin-bottom: 0.07rem;
+	border-radius: 0.04rem;
+}
+#menu a{
+	display: block;
+	padding-right: 0.2rem;
+    font-weight: bold;
+    color: #666;
+    white-space:nowrap;    
+	-o-text-overflow:ellipsis;
+	text-overflow: ellipsis;
+    overflow: hidden;    
+    cursor: pointer;  
+}
+/*   lable module
+ --------------------------------------------------------------*/
+.g-lable{
+	position: absolute;
+	left: 250px;
+	width: calc(100% - 234px) !important;
+	height: 100%;
+	padding-right: 16px;
+	background:#fff;
+	padding-left: .1rem;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+/* search unit
+ -------*/
+.editor{
+	padding-top: .06rem;
+	box-sizing: border-box;
+}
+.form1{
+	float: left;
+	width: 50%;
+	height: 100%;
+}
+.editor p{
+	width:1.1rem;
+	height:0.3rem;
+	line-height:0.3rem;
+	margin-left: auto;
+	border-radius:0.4rem;
+	text-align:center;
+	color:white;		
+	background-color:#5bc9c9;
+	cursor: pointer;
+}
+/* add lable unit
+ -----------------*/
+.lablegroups{
+	position: relative;
+	margin-bottom: 0.2rem;
+}
+.group-wrapper{
+	display: inline-block;
+	width: 100%;
+	padding:.1rem ;
+	padding-bottom: 0;
+    border-bottom: 0.013rem dotted #ccc;    
+    border-radius: 0.03rem;
+    box-sizing: border-box;
+}
+.group-id{
+    width: 13%;
+    padding-top: .05rem;
+    font-weight: bold;
+}
+.group{
+    width: 70%;
+    min-height: .4rem;
+}
+.group-del{
+    width: 17%;
+}
+.group-del input{
+	float: right;
+    padding: 0.06rem 0.07rem;
+    color:white;
+    border: 0.013rem solid  #00CCCC;
+    background-color: #5bc5c5;
+    border-radius: 0.5rem;
+}
+.group .group-node{
+	display: inline-block;
+	padding: 0.05rem 0.1rem;
+	margin: 0.05rem;
+    margin-top: 0;
+	white-space: nowrap;       
+    border: 0.013rem solid #666;    
+    border-radius: 0.5rem;
+}
+/*You can choose the content
+ --------------------------------------------------------*/
+.addline{
+	line-height: 0.4rem;		
+	padding-right: .1rem;
+	text-align: center;	
+	color: #666;
+	box-sizing: border-box;
+}
+.more{
+	padding: 13px 9px;
+	font-size: 0.15rem;
+	text-align: center;
+	color: white;
+	border-radius: 50%;
+	background:#5bc9c9;
+	transition: all .5s;
+	opacity: .5;
+}
+.more:hover{
+	opacity: 1;
+	text-decoration:underline ;
+}
+.time form{
+		margin:0.2rem auto;
+}
+.time input{
+	border-radius: 0.03rem;
+}
+.form2{
+	width: 100%;
+}
+.form2 input{
+	display: block;
+	margin: 0 auto;
+}
+.inp1{
+	width:2.8rem;
+	height:0.32rem;
+	outline: none;
+	border-bottom:#66cccc 0.013rem solid;
+	padding-left: 0.1rem;
+	box-sizing: border-box;
+	font-size: 0.14rem;
+	color: #666;
+	}
+.inp2{
+	width:2.15rem;
+	height:0.32rem;
+	line-height:0.3rem;
+	border:#666 0.013rem solid;
+	display:inline-block;
+	position: relative;
+	margin-left: 0.21rem;
+	padding-left: 0.05rem;
+	box-sizing: border-box;
+	}
+.time_span01{
+	width:0.16rem;
+	height:0.16rem;
+	background:url(../image/rili.jpg) no-repeat;
+	position:absolute;
+	top:0.08rem;
+	right: 0.05rem;
+	}
+.inp0{
+	width:2.15rem;
+	height:0.32rem;
+	border:#666 0.013rem solid;
+	margin-right: 0.21rem;
+	box-sizing: border-box;
+	}
+.inp0:nth-child(2){width: 2.1rem;}
+.inp0:nth-child(4){margin: 0;}
+.btn{
+	width: inherit;
+	text-align: center;
+	padding-right: .1rem;
+	box-sizing: border-box;
+}
+.time_btn{		
+	padding: 0.12rem 1.02rem;
+	font-size: 0.18rem;
+	font-weight: bold;
+	letter-spacing: 0.02rem;
+	color:white;
+	background-color:#5bc9c9;
+	border-radius: 50px;
+	cursor: pointer;
+}
+
+.slide_Up{
+	width: 100%;
+	height: 0;
+	margin: 0.1rem 0;
+	overflow: hidden;
+	border-radius: 0.03rem;
+    background-color:#ebfcfe;
+    opacity: 0;
+}
+.laydate-icon{
+	background-image: url(/image/icon.png);
+	background-repeat:no-repeat ;
+	background-position: right center;
+}
+.u-item{
+	position: relative;
+	float: left;
+	width: 33.333%;
+	height: 100%;
+	padding-top: 18px;
+	box-sizing: border-box;
+}
+.u-item input{
+	width: 90%;
+	height: 20px !important;
+	padding:0.078rem 0.06rem;
+	border: 0.013rem solid #ccc;
+	overflow: hidden;
+}
+.u-item b{
+	position: absolute;
+	z-index: 2;
+	right: 0;
+	width: 50px;
+	color: #ccc;
+}
+.u-item input:focus{
+	transition:border linear .2s,box-shadow linear .5s;
+	-moz-transition:border linear .2s,
+	-moz-box-shadow linear .5s;
+	-webkit-transition:border linear .2s,
+	-webkit-box-shadow linear .5s;
+	outline:none;
+	border-color:rgba(2,254,251,.75);
+	box-shadow:0 0 8px rgba(2,254,2,.105);
+}
+/*  historical record
+ ---------------------*/
+.u-record{
+	position: absolute;	
+	display: none;		
+	left: .1rem;
+	top: .6rem;
+	width:2.6rem;
+	border:none;
+	background-color: white;
+	box-shadow: 0 0.02rem 0.06rem -0.01rem #333;
+}
+.history_content{
+	overflow: hidden;
+	width: 100%;
+	height: 100%;	
+}
+.u-record:before{
+	content: "";
+	border: 0.12rem solid transparent;
+	border-bottom: 0.16rem solid #eae9e9;
+	position: absolute;
+	top: -0.25rem;
+}
+.u-record:after{
+	content: "";
+	border: 0.1rem solid transparent;
+	border-bottom: 0.13rem solid white;
+	position: absolute;
+	top: -0.2rem;
+	left: 0.02rem;
+}
+.select{
+	overflow-y:auto;
+	width:106%;
+	height: 1.95rem;
+	padding:0.05rem 0;
+	box-shadow: 0 0.02rem 0.02rem -0.01rem #999;
+}
+.select li,.u-record p{
+	position: relative;
+	padding:5px;
+	padding-right: 0;
+	color: #666;
+	cursor:default;			
+}
+.select li:hover{
+	color: white;
+	background-color: #86e0ec;	
+}
+.submit_btn{
+	width:88% !important;
+	padding: 0.05rem 0;
+    margin: 0.04rem auto -2px;
+    margin-left: 6%;
+    text-align: center;
+    border-radius: 0.03rem;
+    letter-spacing: 0.02rem;
+    color: white;
+    background-color: #69c6c5;      			
+}
+.u-record p{
+	padding-right: 2px;
+	color: #333;
+	background-color: #daeff3;
+}
+.u-record i{
+	display: inline-block;
+	width: 1.4rem;
+	height: 20px;
+	padding-left: 2px;
+	box-sizing: border-box;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.u-record li>i:first-child,.u-record p>i:first-child{
+	width: 0.5rem;
+	padding-left: 0;
+	text-align: center;
+	border-right:1px dashed #ccc;
+}
+.u-record li>i:last-child,.u-record p>i:last-child{
+	float: right;
+	width: 0.5rem;
+	padding-left: 0;
+	text-align: center;
+	border-left:1px dashed #ccc;
+}
+#slideUp li{
+	position: relative;
+	border-bottom: 0.013rem dashed #dbfbfb;
+}
+.slideLi{
+	background-color: #86e0ec;
+}
+/* unit tips
+ --------------*/
+#tip{
+	position: absolute;
+	padding: .1rem .2rem;
+	border-radius: 0.03rem;
+	background-color:#A2F0F0;	
+}
+.aleft_box01{
+	width:100%;
+	margin:0 auto;
+	position:relative;
+}
+#activity-Particulars li{
+	color: #333;
+	font-size: 0.15rem;
+	font-weight: 600;
+}
+#activity-Particulars i{
+	vertical-align: bottom;
+	color: #666;
+	font-weight: 500;
+}
+.aleft_ul01 li:nth-child(2){
+	width: 4.7rem !important;
+}
+.aleft_ul02 .ep2{
+	margin-top: -0.08rem;
+	display: block;
+	width: 1.1rem;
+	background-color: #00cccc;
+	border-radius: 0.50rem;
+	text-align: center;
+	font-size: 0.15rem;
+	color: white !important;
+	float: right;
+}
+#_name{
+	text-align: left;
+	display: inline-block;
+	width: 3.8rem;
+}
+
+.aleft_ul01 li,.aleft_ul02 li{
+	width: 30.3%;
+	height:0.3rem;
+	line-height:0.3rem;
+	float:left;		
+}
+.aleft_ul02 li{
+	margin: 0.05rem 0;
+	
+}
+.aleft_ul03{
+	border-bottom:0.02rem solid #d8f4ff;
+}
+.aleft_ul03 li{
+	height:0.3rem;
+	line-height:0.3rem;
+	}
+.aleft_ul03 .fr i{color: #00CCCC;}	
+.aleft_label ul{
+	width:8.3rem;}
+.aleft_label ul li{
+	float:left;
+	height:0.3rem;
+	line-height:0.3rem;
+	border:#ccc 0.013rem solid;
+	border-radius:0.15rem;
+	}
+.aright_box{
+	width:2.12rem;
+	height:5rem;
+	margin-left: 0.15rem;
+}
+.aright_box img{width: 100%;}
+.group-wrapper:last-child{
+	border: none;
+}
+.group-wrapper>div{
+    float: left;
+    box-sizing: border-box;
+}
+/*  lable right
+ * --------------------------*/		
+
+/*=====================以上是添加标签组部分===========================================*/
+/*You can choose the content
+ --------------------------------------------------------*/
+@keyframes noticeBoard{
+	0%{transform: translate(-50%,-50%) rotate(10deg);}
+	15%{transform: translate(-50%,-50%) rotate(-10deg);}
+	40%{transform: translate(-50%,-50%) rotate(8deg);}
+	75%{transform: translate(-50%,-50%) rotate(-2deg);}
+	100%{transform: translate(-50%,-50%) rotate(0deg);}
+}
+@keyframes Board{
+	0%{transform: translate(0%,-107%) rotate(55deg);}
+	15%{transform: translate(0%,-107%) rotate(35deg);}
+	40%{transform: translate(0%,-107%) rotate(53deg);}
+	75%{transform:  translate(0%,-107%) rotate(42deg);}
+	100%{transform: translate(0%,-107%) rotate(45deg);}
+}
+/* 下载记录
+ -------------------------------------------------*/
+.aside_content{
+	font-size: 0.014rem;
+	display: none;
+	border-radius: 0.02rem;
+	width: 1.8rem;
+	min-height: 3rem;
+	max-height: 3rem;
+	box-shadow: 0 0 0.08rem -0.01rem #5bc5c5;
+	position: fixed;
+	right: 1.45rem;
+	bottom: 0.8rem;
+	z-index: 5;
+	overflow: hidden;
+	background-color: #fdfdfd;
+	padding-bottom: 0.1rem;
+}
+.aside_content .content_nav{
+	width: 1.8rem;
+	height: 2.79rem;
+	overflow: auto;
+	padding-right: 0.3rem;
+}
+.aside_content ._header{
+	font-size: 0.15rem;
+	white-space: nowrap;			
+	width: 100%;
+	padding: 0.08rem 0;
+	text-align: center;
+	background-color: #5bc5c5;
+	color: white;
+}
+.Entries_group .entry{
+	width: 100%;
+	padding:0 0.1rem;
+	box-sizing: border-box;	
+}
+.Entries_group .entry:hover{
+	background-color: #94c6f0;
+}
+.Entries_group .entry_content{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	display: block;
+	width: 100%;
+	height: 0.35rem;
+	line-height: 0.35rem;
+	padding:0 0.05rem;
+	padding-right: 0.2rem;
+	box-sizing: border-box;
+	color: #666;
+	border-bottom: 0.013rem dashed #EFEFEF;
+	background: url(/image/pageDown.png)no-repeat right center;
+}
+.aside_btn{
+	position: fixed;
+	right: 0.15rem;
+	bottom:0.15rem;
+	padding: 0rem 0.012rem;
+	font-weight: 600;
+	border-radius: 50%;
+	color: white;
+	background-color: #5bc5c5;
+	opacity: .4;
+	transition:.3s all;
+	padding: 0 0.09rem 0.02rem;
+	font-size: 0.3rem;
+}
+.aside_btn:hover{
+	opacity: 1;
+}
+._slideDown{
+	animation:slideDown .5s 1 ;
+}
+._slideUp{				
+	box-shadow: 0.03rem 0 0.06rem -0.01rem #132bde;
+}
+/* DATE
+ ------------------------*/	
+ .dt{
+    
+    border: 0.013rem solid #666;
+}
+#demo{
+    width: 1.85rem ;
+    padding: 0.1rem ;
+    border: 0.013rem solid #999;
+    background-color: #fff;
+    
+}
+#demo input{
+	float: left;
+	width: 46% !important;
+	text-align: center;
+	cursor: pointer;
+}
+#demo button{
+    width: 100%;
+    padding: 0.09rem 0;
+    cursor: pointer;
+    font-size: 0.15rem;
+    font-weight: 600;
+    color: white;
+    background-color: #60cecd;
+}
+#demo span{
+    display: block;
+    position: absolute;
+    bottom: 42px;
+    right: -0.18rem;
+    font-size: 0.22rem;
+    padding:0 0.06rem;
+    border-radius: 50%;
+    color: #1bcac8;
+    cursor: pointer;
+}
+#demo i{
+	font-size: 0.18rem;
+	padding: 0 !important;
+    padding-top: 1% !important;
+	margin: 0 !important;
+	float: left;
+}
+p{margin-top: 0.05rem;}
+#da{
+    padding-bottom: 0.5rem;
+}
+#da:before{
+    border: 0.1rem solid transparent;
+    border-bottom: 0.11rem solid #EFEFEF;
+    content: "";
+    position: absolute;
+    top: -20px;
+}
+#da:after{
+    border: 0.08rem solid transparent;
+    border-bottom: 0.1rem solid white;
+    content: "";
+    position: absolute;
+    top: -17px;
+    left: 0.02rem;
+}
+/*  提示框
+ ---------------*/
+
+.warning_box{
+	display: none;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.5);
+	z-index: 99;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.rotating{
+	position: absolute;
+	width: 2rem;
+	height: 2rem;
+	top: 50%;
+	left: 50%;
+	transform-origin: 0 0;
+	transform: translate(0%,-107%) rotate(45deg);
+	animation: Board 3s 1;
+	background-color:rgba(0,0,0,0);
+	border: 0.013rem solid #EFEFEF;
+	border-radius: 0.03rem;
+}
+.warning{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%) rotate(0deg);
+	animation: noticeBoard 3s 1;
+	transform-origin: 1.65rem -1.65rem;
+	width: 3.3rem;
+	border-radius: 0.05rem;
+	overflow: hidden;
+	margin: 0 auto;
+	box-shadow: 0 0.02rem 0.06rem -0.01rem #5bc5c5;
+}
+.warning p,.warning_btn{
+	width: 100%;
+	height: 0.45rem;
+	text-align: center;
+	line-height: 0.45rem;
+	background-color: #5bc5c5;
+	color: white;
+	font-size: 0.16rem;
+}
+.warning span{
+	display: block;
+	width: 100%;
+	box-sizing: border-box;
+	padding:0.30rem 0.10rem;
+	background-color:#EFEFEF;
+	color: #666;text-align: center;
+	font-size:0.14rem ;
+}
+/* table img  style tip
+ ------------------------*/
+.expression{
+	display: none;
+	padding: 0.1rem;
+	border-radius: 0.05rem;
+	width: 2.60rem;
+	background:#fff;
+	right: 0;
+	top:1.25rem;
+	position:absolute;
+	z-index: 99;
+	box-shadow: 0rem 0.02rem 0.06rem -0.01rem #333;}
+.expression:after{
+	content: "";
+	position: absolute;
+	border:0.12rem solid transparent;
+	border-bottom:0.13rem solid #fff;
+	top: -0.24rem;
+	right: 0.16rem;
+}
+.expression:before{
+	content: "";
+	position: absolute;
+	border:0.11rem solid transparent;
+	border-bottom:0.13rem solid #ccc;
+	top: -0.25rem;
+	right: 0.17rem;
+}
+.eimg li{
+	text-align:left;
+	cursor: pointer;	
+	position: relative;
+	padding: 0.03rem 0;
+	padding-left: 0.35rem;
+	
+}
+.eimg li img{
+	position: absolute;
+	left: 0.01rem;
+	border-radius:0.40rem;
+}
+#status{
+	cursor: pointer;
+}
+/*  导出选择
+ --------------------------*/
+
+.u-export{
+	display: none;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	position: absolute;
+	background-color: rgba(0,0,0,.4);
+	z-index: 100;
+}
+.u-export ul{
+	background-color: white;
+	position: absolute;
+	transform: translate(-50%,-50%);
+	top: 50%;
+	left: 50%;
+	width: 0rem;
+	height: 330px;
+	padding: 7px 5px;
+	border-radius: 15px;
+	opacity: 0;
+}
+.u-export ul li{
+	display: none;
+	padding:10px 30px;
+	font-size: 0.16rem;
+	border-bottom:1px solid #F2F2F2 ;
+}
+.u-export ul li:nth-child(1n + 6){
+	border: none;
+	padding: none;
+}
+.u-export ul li:nth-child(1n + 7){
+	padding: 0;
+}
+.u-export ul li input{
+	width: 0.18rem;
+	height: 0.18rem;
+	vertical-align: middle;
+	margin-top: -0.04rem;
+	margin-right: 0.08rem;	
+	color: #666;
+}
+.u-export ul li .btn{
+	width:100%;
+	text-align: center;
+	line-height: 0.01rem;
+	background:darkturquoise;
+	margin: 0 auto;
+	border-radius:0.03rem;
+	padding: 20px 5px;
+	display: block;
+	color: white;
+	font-size: 0.18rem;
+}

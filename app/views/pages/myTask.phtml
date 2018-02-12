@@ -1,0 +1,372 @@
+<style type="text/css">
+	.preview{
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		width: 80%;
+		height: 90%;
+		margin:auto;
+		padding: 5px;
+		border-radius: 5px;
+		box-shadow:0 0 5px 5px #C9C9C9;
+		background-color:#bdf6fd;
+		z-index:3;
+		display: none;
+	}
+	.shut{
+		position: absolute;
+		display: block;
+		float: right;
+		top: -12px;
+		right: -9px;
+		width: 30px;
+		height: 30px;
+		border-radius: 50px;
+		background-color:#ffcc33;
+		transition: all 1s;
+		z-index: 2;
+	}
+	.shut:after{
+		position: absolute;
+		width: 16px;
+		border: 2px solid #887c7c;
+		border-radius: 50px;
+		transform-origin: -12px 18px;
+		transform: rotate(31deg);
+		content: "";
+		transition: all 0s !important;
+	}
+	.shut:before{
+		position: absolute;
+		width: 16px;
+		border: 2px solid #887c7c;
+		border-radius: 50px;
+		transform-origin: 8.5px 10px;
+		transform: rotate(121deg);
+		content: "";
+		transition: all 0s !important;
+	}
+	.shut:hover{
+		transform:rotate(300deg);
+		-ms-transform:rotate(300deg); 	 /*IE 9 */
+		-moz-transform:rotate(300deg); 	 /*Firefox */
+		-webkit-transform:rotate(300deg);  /*Safari 和 Chrome*/ 
+		-o-transform:rotate(300deg); 	 /*Opera*/
+	}
+	.logContent{
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+		background-color:#FFF;
+	}
+	.logContent-tbody{
+		width:calc(100% + 12px);
+		height: 100%;
+		overflow: auto;
+	}
+	.logContent thead th{
+		background-color: #00c0be;
+	}
+    #logInformation-tab	tr td:last-child {
+	    text-align:left;
+	    padding-left: 15px;
+	    box-sizing: border-box;
+	}
+	.formContent-tbody{
+		width:calc(100% + 12px);
+		height: calc(100% - 27px);
+		overflow: auto;
+	}
+	
+	#taskList tr{
+		text-align: center;
+	}
+	.t-table{
+		width: calc(100% + 12px); 
+		height: auto;
+		max-height: 100%;
+		border: none;
+		overflow-y: scroll;
+		overflow-x: hidden;
+	}
+	.t-table table,.logContent table{
+		border: 1px solid #ccc;
+	}
+	.task-table{
+		border: none;
+	}
+</style>
+<section class="task-table" style="height: 100%;">
+	<header class="hgroup">
+		<p class="time">
+			<span>时间：</span><input style="box-sizing: content-box;" id="task" type="text" value="" placeholder="请输入时间" onfocus="creatDate(this)"/>
+		</p>
+	</header>
+	<div class="t-table">
+		<table>
+			<thead>
+				<th date-type="id">序列</th>
+				<th date-type="remark">任务说明</th>
+				<th date-type="status">状态</th>
+				<th date-type="executeTime">开始时间</th>
+				<th date-type="endTime">结束时间</th>
+				<th date-type="">操作</th>
+			</thead>
+			<tbody id="taskList"></tbody>
+		</table>
+	</div>
+	<article class="logInformation preview">
+		<a href="javascript:;" class="shut"></a>
+	</article>
+	<article class="historyReport preview">
+		<a href="javascript:;" class="shut"></a>
+	</article>
+</section>
+<script type="text/javascript">
+var t = {};
+var logInformation = {
+	config_id:undefined,// 任务ID
+	taskName:undefined, // 任务名称
+	skipRowNumber:0	    // 当前加载行数
+}
+t.dom  = $('#myTask');
+var myDate = new Date(),
+	Month  = (myDate.getMonth()+1) < 10 ? '0'+(myDate.getMonth()+1) : (myDate.getMonth()+1),
+	myDate = myDate.getFullYear() +'-'+ Month +'-'+ myDate.getDate(),
+	timer  = undefined;
+	$('#task').val(myDate);
+var startTime = myDate+" 00:00:00" ,
+	endTime   = myDate+" 23:59:59" ;
+	//历史记录
+t.myItme = function(){
+	var $task = $('#myTask');
+	// 在重新获取数据 
+	t.historicalTask()
+}
+t.historicalTask = function(){
+	var protos = false;
+	if(protos == false){
+		t.tasks(startTime,endTime);
+	}
+}
+t.tasks = function(myTime){
+	protos = true;
+	$.ajax({
+		type:"post",
+		url:"http://ds.idc.xiwanglife.com/view/findTaskByUser.do?startTime="+startTime+"&endTime="+endTime+"&page=1&rows=99999",
+		async:true,
+		xhrFields: {
+          	withCredentials: true
+      	},
+		crossDomain: true,
+		success:function(data){
+			//taskList
+			var data = data.rows,
+				count = 1;
+			for(var i = data.length-1; i >= 0; i--){
+				var tr = '<tr>'
+						+'<td>'+count+'</td>'
+						+'<td>'+data[i].remark+'</td>'
+						+'<td>'+t.getStatus(data[i].status)+'</td>'
+						+'<td>'+getMyDate(data[i].executeTime)+'</td>'
+						+'<td>'+getMyDate(data[i].endTime)+'</td>'
+						+'<td><a href="javascript:;" data-type="'+data[i].taskName+'" data-page="logInformation">日志&nbsp;</a>'
+							/*+'<a href="javascript:;" data-type="">&nbsp;&nbsp;下载&nbsp;&nbsp;</a>'*/
+							+'<a href="javascript:;" data-type="'+data[i].taskName+'" data-page="historyReport">&nbsp;报表</a>'
+						+'</td></tr>';
+				$('#taskList').append(tr);
+				count++
+			}
+		}
+	});
+}
+
+// 日志弹出页
+t.viewLog = function(this_window){
+	// 绑定新的框架
+	$.ajax({
+		type:"get",
+		url:"http://ds.idc.xiwanglife.com/view/findTaskLogByName.do",
+		data:{
+			taskName:logInformation.taskName,
+			skipRowNumber:logInformation.skipRowNumber
+		},
+		dataType:'json',
+		async:false,
+		xhrFields: {
+          	withCredentials: true
+      	},
+		crossDomain: true,
+		success: function(data){
+		 	try {
+				// task info
+				this_window.find("#taskName").html(data.task.taskName);
+				this_window.find("#remark").html(data.task.remark);
+				this_window.find("#logPath").html(data.task.logPath);
+				this_window.find("#errorLogPath").html(data.task.errorLogPath);
+				var content = "";
+				var params = data.task.params.split(",");
+				for (var i in params) {
+					if (content != "") {
+						content += "<br/>";
+					}
+					content += params[i];
+				}
+				this_window.find("#params").html(content);
+				var status = t.getStatus(data.task.status);
+				this_window.find("#status").html(status);
+				// log
+				this_window.find("#content").html(this_window.find("#content").html().replace(/loading.../,""));
+				this_window.find("#content").append(data.logModel.content);
+				var status = t.getStatus(data.task.status);
+				if (status == "正在执行" || status == "等待执行" || logInformation.skipRowNumber != data.logModel.total || logInformation.skipRowNumber == 0) {
+					logInformation.skipRowNumber = data.logModel.total;
+					timer = setTimeout(function(){t.viewLog(this_window)},2000);
+				}else{
+					clearTimeout(timer);
+				}
+			} catch (e) {
+				timer = setTimeout(t.viewLog(this_window),3000);
+			}
+		}
+	});
+}
+
+/**************************************       点击判断             *****************************************/
+	//Date 插件开始
+	function creatDate(event){
+		$('<div id="da"></div>').calendar({
+			trigger:$(event),
+			zIndex:999,
+			format:'yyyy-mm-dd'
+		}).appendTo($('body'));
+	}
+	 /*  
+	js由毫秒数得到年月日  
+	*/  
+	function getMyDate(str){  
+	    var oDate = new Date(str),  
+	        oYear = oDate.getFullYear(),  
+	        oMonth = oDate.getMonth()+1,  
+	        oDay = oDate.getDate(),  
+	        oHour = oDate.getHours(),  
+	        oMin = oDate.getMinutes(),  
+	        oSen = oDate.getSeconds(),  
+	        oTime = oYear +'-'+ getzf(oMonth) +'-'+ getzf(oDay) +' '+ getzf(oHour) +':'+ getzf(oMin) +':'+getzf(oSen);//最后拼接时间  
+	    return oTime;  
+	};  
+	//补0操作  
+	function getzf(num){  
+	    if(parseInt(num) < 10){  
+	        num = '0'+num;  
+	    }  
+	    return num;  
+	}  
+	//  日志
+	t.getStatus = function(value) {
+		if (value == "WAIT")
+			return "等待执行";
+		if (value == "RUN")
+			return "正在执行";
+		if (value == "SUCCESS")
+			return "执行成功";
+		if (value == "FAIL")
+			return "执行失败";
+		if (value == "CANCEL")
+			return "执行取消";
+		return "未知状态";
+	}
+	t.getForms = function(page){
+		// 初始化参数、定义参数
+		var queryString = window.location.search.substr(1);
+		var initData = false;
+		var dataCount = 0;
+		$.ajax({
+			type:"post",
+			url:"/pages/get/"+page,
+			async:true,
+			success:function(data){
+				$('.'+page).animate({'height':'90%',opacity:1},100,function(){$(this).show()}).append(data);
+				init();
+			}
+		});
+		var init = function() {
+			initData = false;
+			logInformation.skipRowNumber = 0;
+			dataCount = 0;
+			getResult();
+		};
+		var getResult = function() {
+			$.ajax({
+					type:"get",
+					url:"http://ds.idc.xiwanglife.com/view/findReportByTaskName.do",
+					data:{
+						taskName:logInformation.taskName,
+						skipRowNumber:logInformation.skipRowNumber
+					},
+					dataType:'json',
+					async:false,
+					xhrFields: {
+			          	withCredentials: true
+			      	},
+					crossDomain: true,
+					success:function(data){
+						if (!data.total || !data.result) {
+							$("#report>thead>tr").html("没有数据。");
+							return false;
+						}
+						if (logInformation.skipRowNumber == 0) {
+							$("#report>thead>tr").empty();
+							$("#report>tbody").empty();
+							var heads = data.result[0];
+							$("#report>thead>tr").append("<th></th>");
+							for ( var i in heads) {
+								$("#report>thead>tr").append("<th>" + heads[i] + "</th>");
+							}
+						}
+						if (!initData) {
+							initData = !initData;
+							$("#report .odd").remove();
+						}
+						var rows = data.result;
+						for ( var j in rows) {
+							if (logInformation.skipRowNumber == 0 && j ==0) {
+								continue;
+							}
+							dataCount++;
+							var cls = "background-color:#bdf6fd;";
+							if (dataCount % 2 == 0) {
+								cls = "background-color:#bdf6fd;";
+							}
+							//var tr = $("<tr style='" + cls + "'></tr>");
+							var tr = $("<tr></tr>");
+							tr.append("<td>" + dataCount + "</td>");
+							var columns = rows[j];
+							for ( var i in columns) {
+								tr.append("<td>" + columns[i] + "</td>");
+							}
+							$("#report>tbody").append(tr);
+						}
+						if (data.complete) {
+							$("#total").html("<b>["+(data.total - 1)+"]</b>");
+							$("#info").html("数据加载完毕。");
+						} else {
+							logInformation.skipRowNumber = data.total;
+							$("#total").html("<b>["+(data.total - 1)+"]</b>");
+							$("#info").html("<a href='javascript:void(0)'>加载更多数据</a>");
+							$("#info>a").click(function() {
+								$("#info").html("正在加载数据。");
+								getResult();
+							});
+						}
+					}
+			
+			});
+		}
+	}
+	
+	
+	t.myItme();
+</script>
